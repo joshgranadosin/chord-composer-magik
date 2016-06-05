@@ -1,0 +1,26 @@
+{
+  "name": "chord-composer-magik",
+  "version": "0.0.0",
+  "description": "make chord sheet music",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshgranadosin/chord-composer-magik.git"
+  },
+  "author": "joshgranadosin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joshgranadosin/chord-composer-magik/issues"
+  },
+  "homepage": "https://github.com/joshgranadosin/chord-composer-magik#readme",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "express": "^4.13.4",
+    "express-jwt": "^3.4.0",
+    "jsonwebtoken": "^7.0.0",
+    "mongoose": "^4.4.19"
+  }
+}
