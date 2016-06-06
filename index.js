@@ -10,8 +10,8 @@ var mongodbURI = process.env.MONGODB_URI || 'mongodb://localhost/ccmagik';
 mongoose.connect(mongodbURI);
 
 // models
-// var User = require('./models/user');
-// var Sheet = require('./models/sheet');
+var User = require('./models/user');
+var Songsheet = require('./models/sheet');
 
 // middleware
 app.use(express.static(path.join(__dirname, 'public')));
@@ -61,3 +61,6 @@ app.delete('songsheet/:id', function(req,res){
 app.get('/*', function(req,res){
 	res.sendFile('./public/index.html');
 });
+
+// app listen
+app.listen(process.env.PORT || 3000);

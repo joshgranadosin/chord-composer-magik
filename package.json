@@ -17,10 +17,12 @@
   },
   "homepage": "https://github.com/joshgranadosin/chord-composer-magik#readme",
   "dependencies": {
+    "bcrypt": "^0.8.6",
     "body-parser": "^1.15.1",
     "express": "^4.13.4",
     "express-jwt": "^3.4.0",
     "jsonwebtoken": "^7.0.0",
-    "mongoose": "^4.4.19"
+    "mongoose": "^4.4.19",
+    "path": "^0.12.7"
   }
 }
