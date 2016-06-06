@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>Chord Composer Magik(TM)</title>
-
 	<!-- Third Party Stylesheet CDNS -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -10,108 +9,22 @@
 	<!-- Main Stylesheet -->
 	<link rel="stylesheet" href="style.css">
 
+	<!-- Angular CDNs -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-resource.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.js"></script>
+
 	<!-- Third Party Javascript Libraries -->
 	<script src="lib/raphael.js"></script>
 	<script src="lib/raphael.chord.js"></script>
 	<script src="lib/interact.min.js"></script>
+
+	<!-- Angular Modules -->
+	<script src="app/controllers.js"></script>
+	<script src="app/app.js"></script>
+
 </head>
-<body>
-<div class="left-toolbar">
-	<div class="container-fluid">
-		<p class="pull-left">Hi, <a>
-			norinatto@mail.com
-		</a></p>
-
-		<a class="pull-right" href="#">Log out</a>
-
-		<hr>
-
-		<h2>Chord Sheet Details</h2>
-
-		<form>
-		  <div class="form-group">
-		    <label>Title:</label>
-		    <input type="text" class="form-control" placeholder="Title">
-		  </div>
-		  <div class="form-group">
-		    <label>Artist:</label>
-		    <input type="text" class="form-control" placeholder="Artist">
-		  </div>
-		</form>
-
-		<section class="button-section">
-			<button type="button" class="btn btn-default btn-sm" aria-label="Left Align">
-			  <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print
-			</button>
-			<button type="button" class="btn btn-default btn-sm" aria-label="Left Align">
-			  <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save
-			</button>
-			<button type="button" class="btn btn-default btn-sm" aria-label="Left Align">
-			  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete
-			</button>
-		</section>
-
-		<hr>
-
-		<h2>Chord List</h2>
-
-		<div class="btn btn-default btn-sm draggable" aria-label="Left Align">C#maj7</div>
-
-		<section style="height:20px;"></section>
-
-  	<label>Add to Chord List:</label>
-    <div class="input-group">
-      <input type="text" class="form-control" placeholder="C#maj7">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button">
-        	<span class="glyphicon glyphicon-plus"></span>
-        </button>
-      </span>
-    </div>
-
-    <br>
-
-    <label>Show Chord Legend:</label>
-    <section>
-			<label class="radio-inline">
-			  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">Top 
-			</label>
-			<label class="radio-inline">
-			  <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">Bottom 
-			</label>
-			<label class="radio-inline">
-			  <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">None 
-			</label>
-		</section>
-
-		<br>
-
-		<section class="delete-section">
-			<span class="glyphicon glyphicon-trash"></span>
-			<label> Drag unwanted chord labels here to delete them </label>
-		</section>
-	</div>
-</div>
-<div class="container-flex full-area">
-	<div class="container writing-area">
-		<h1>Woof <small> by Nori & Natto</small></h1>
-		<hr>
-		<label>Chord List:</label>
-		<div class="chord-top">
-			<div id="chord1"></div>
-		</div>
-		<hr>
-
-		<p class="lyrics" contenteditable>
-			Prosciutto beef ribs beef sirloin swine cupim. Short loin ball tip rump short ribs, porchetta ham pork chop doner beef ribs ground round bacon sirloin. Jerky strip steak alcatra, jowl andouille biltong hamburger ground round brisket bacon. Flank turkey beef, prosciutto pork chop bacon ground round ball tip shank chuck.
-
-			Tongue picanha cupim ribeye pig tenderloin biltong jerky. Turducken picanha rump pancetta. Ham hock drumstick porchetta, pork tongue landjaeger ground round frankfurter short ribs tenderloin jowl. Shank t-bone porchetta beef ribs leberkas hamburger biltong sausage beef meatball shoulder
-		</p>
-	</div>
-</div>
-
-
-<!-- Test javascript file, will be removed once angular is in place -->
-<script src="script.js"></script>
+<body ng-app="ChordApp">
+	<div ui-view></div>
 </body>
 </html>
