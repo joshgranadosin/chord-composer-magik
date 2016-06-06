@@ -2,10 +2,17 @@
 <html>
 <head>
 	<title>Chord Composer Magik(TM)</title>
+
+	<!-- Third Party Stylesheet CDNS -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+	<!-- Main Stylesheet -->
 	<link rel="stylesheet" href="style.css">
-	
+
+	<!-- Third Party Javascript Libraries -->
+	<script src="lib/raphael.js"></script>
+	<script src="lib/raphael.chord.js"></script>
 </head>
 <body>
 <div class="left-toolbar">
@@ -75,12 +82,35 @@
 			  <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">None 
 			</label>
 		</section>
+
+		<br>
+
+		<section class="delete-section">
+			<span class="glyphicon glyphicon-trash"></span>
+			<label> Drag unwanted chord labels here to delete them </label>
+		</section>
 	</div>
 </div>
 <div class="container-flex full-area">
 	<div class="container writing-area">
 		<h1>Woof <small> by Nori & Natto</small></h1>
+		<hr>
+		<label>Chord List:</label>
+		<div class="chord-top">
+			<div id="chord1"></div>
+		</div>
+		<hr>
+
+		<p class="lyrics" contenteditable>
+			Prosciutto beef ribs beef sirloin swine cupim. Short loin ball tip rump short ribs, porchetta ham pork chop doner beef ribs ground round bacon sirloin. Jerky strip steak alcatra, jowl andouille biltong hamburger ground round brisket bacon. Flank turkey beef, prosciutto pork chop bacon ground round ball tip shank chuck.
+
+			Tongue picanha cupim ribeye pig tenderloin biltong jerky. Turducken picanha rump pancetta. Ham hock drumstick porchetta, pork tongue landjaeger ground round frankfurter short ribs tenderloin jowl. Shank t-bone porchetta beef ribs leberkas hamburger biltong sausage beef meatball shoulder
+		</p>
 	</div>
 </div>
+
+
+<!-- Test javascript file, will be removed once angular is in place -->
+<script src="script.js"></script>
 </body>
 </html>

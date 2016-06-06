@@ -1,0 +1,1 @@
+Raphael.chord('chord1', Raphael.chord.find('C#', 'maj7'), 'C# maj7');
