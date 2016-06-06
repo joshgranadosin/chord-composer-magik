@@ -36,7 +36,7 @@ userSchema.pre('save', function(next){
     console.log("succeeded hash");
     next();
 	});
-};
+});
 
 var User = mongoose.model('User', userSchema);
 

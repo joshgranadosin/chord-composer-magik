@@ -11,7 +11,7 @@ mongoose.connect(mongodbURI);
 
 // models
 var User = require('./models/user');
-var Songsheet = require('./models/sheet');
+var Songsheet = require('./models/songsheet');
 
 // middleware
 app.use(express.static(path.join(__dirname, 'public')));
@@ -59,7 +59,7 @@ app.delete('songsheet/:id', function(req,res){
 
 // login main page
 app.get('/*', function(req,res){
-	res.sendFile('./public/index.html');
+	res.sendFile('/index.html');
 });
 
 // app listen

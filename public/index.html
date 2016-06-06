@@ -1,1 +1,86 @@
-index.html
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Chord Composer Magik(TM)</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" href="style.css">
+	
+</head>
+<body>
+<div class="left-toolbar">
+	<div class="container-fluid">
+		<p class="pull-left">Hi, <a>
+			norinatto@mail.com
+		</a></p>
+
+		<a class="pull-right" href="#">Log out</a>
+
+		<hr>
+
+		<h2>Chord Sheet Details</h2>
+
+		<form>
+		  <div class="form-group">
+		    <label>Title:</label>
+		    <input type="text" class="form-control" placeholder="Title">
+		  </div>
+		  <div class="form-group">
+		    <label>Artist:</label>
+		    <input type="text" class="form-control" placeholder="Artist">
+		  </div>
+		</form>
+
+		<section class="button-section">
+			<button type="button" class="btn btn-default btn-sm" aria-label="Left Align">
+			  <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print
+			</button>
+			<button type="button" class="btn btn-default btn-sm" aria-label="Left Align">
+			  <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save
+			</button>
+			<button type="button" class="btn btn-default btn-sm" aria-label="Left Align">
+			  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete
+			</button>
+		</section>
+
+		<hr>
+
+		<h2>Chord List</h2>
+
+		<div class="btn btn-default btn-sm" aria-label="Left Align">C#maj7</div>
+
+		<section style="height:20px;"></section>
+
+  	<label>Add to Chord List:</label>
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="C#maj7">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">
+        	<span class="glyphicon glyphicon-plus"></span>
+        </button>
+      </span>
+    </div>
+
+    <br>
+
+    <label>Show Chord Legend:</label>
+    <section>
+			<label class="radio-inline">
+			  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">Top 
+			</label>
+			<label class="radio-inline">
+			  <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">Bottom 
+			</label>
+			<label class="radio-inline">
+			  <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">None 
+			</label>
+		</section>
+	</div>
+</div>
+<div class="container-flex full-area">
+	<div class="container writing-area">
+		<h1>Woof <small> by Nori & Natto</small></h1>
+	</div>
+</div>
+</body>
+</html>

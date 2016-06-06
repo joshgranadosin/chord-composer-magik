@@ -18,6 +18,6 @@ var songsheetSchema = new mongoose.Schema({
 	}
 });
 
-var Songsheet = mongoose.model('Songsheet', userSchema);
+var Songsheet = mongoose.model('Songsheet', songsheetSchema);
 
 module.exports = Songsheet;
