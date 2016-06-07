@@ -4,8 +4,18 @@ ctrls.controller('LoginCtrl', ['$scope', '$state', '$window',
 	function($scope, $state, $window){
 		$scope.connected = "Connected to LoginCtrl";
 
-		$scope.linkTo = function(){
-			$state.go('composer');
+		$scope.linkTo = function(str){
+			$state.go(str);
+		}
+	}
+]);
+
+ctrls.controller('SignUpCtrl', ['$scope', '$state', '$window',
+	function($scope, $state, $window){
+		$scope.connected = "Connected to SignUpCtrl";
+
+		$scope.linkTo = function(str){
+			$state.go(str);
 		}
 	}
 ]);

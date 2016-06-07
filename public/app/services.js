@@ -3,13 +3,13 @@ var services = angular.module('ChordServices', []);
 services.factory('Auth', ['$window', function($window) {
   return {
     saveToken: function(token) {
-      $window.localStorage['secretrecipes-token'] = token;
+      $window.localStorage['chord-composer-token'] = token;
     },
     getToken: function() {
-      return $window.localStorage['secretrecipes-token'];
+      return $window.localStorage['chord-composer-token'];
     },
     removeToken: function() {
-      $window.localStorage.removeItem('secretrecipes-token');
+      $window.localStorage.removeItem('chord-composer-token');
     },
     isLoggedIn: function() {
       var token = this.getToken();
