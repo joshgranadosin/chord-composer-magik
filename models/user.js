@@ -25,6 +25,7 @@ var userSchema = new mongoose.Schema({
 	}]
 });
 
+// Hash the password
 userSchema.pre('save', function(next){
 	var self = this;
 	bcrypt.hash(self.password, 10, function(err, hash){
@@ -37,6 +38,32 @@ userSchema.pre('save', function(next){
     next();
 	});
 });
+
+// Don't send out the hashed password
+userSchema.set('toJSON', {
+  transform: function(doc, ret, options) {
+    delete ret.password;
+    return ret;
+  }
+});
+
+// Authentication static method
+userSchema.statics.authenticate = function(pass) {
+	var self = this;
+	bcrypt.compare(pass, self.password, function(err, result){
+		console.log(result);
+		if(err){
+	 		console.log(err);
+			return false;
+	 	}
+	 	else if(result === true) {
+	 		return result;
+		}
+		else {
+			return false;
+		}
+	});
+};
 
 var User = mongoose.model('User', userSchema);
 

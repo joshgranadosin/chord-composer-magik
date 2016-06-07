@@ -1,4 +1,4 @@
-var ctrls = angular.module('ChordCtrls', []);
+var ctrls = angular.module('ChordCtrls', ['ChordServices']);
 
 ctrls.controller('LoginCtrl', ['$scope', '$state', '$window',
 	function($scope, $state, $window){
