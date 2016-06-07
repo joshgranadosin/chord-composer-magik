@@ -52,11 +52,21 @@ div.writing-area{
 	width: 511pt;
 }
 
-p.lyrics{
+p#lyrics{
 	line-height: 60px;
 	white-space: pre-line;
 }
 
 div.chord-tab{
 	display: inline-block;
+}
+
+div.chord-label{
+	position: absolute;
+	border: 1px solid #3369E8;
+	font-weight: bold;
+  line-height: normal;
+  padding: 3px;
+  color: #3369E8;
+
 }
