@@ -14,14 +14,20 @@ ctrls.controller('SignUpCtrl', ['$scope', '$state', '$window',
 	function($scope, $state, $window){
 		$scope.connected = "Connected to SignUpCtrl";
 
+		$scope.email = '';
+		$scope.password = '';
+		$scope.signup = function(){
+
+		}
+
 		$scope.linkTo = function(str){
 			$state.go(str);
 		}
 	}
 ]);
 
-ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window',
-	function($scope, $state, $window){
+ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window', 'SongSheetAPI'
+	function($scope, $state, $window, SongSheetAPI){
 		// keep a list and an input field for new chords
 		$scope.chordList = [];
 		$scope.newChordInput = "";

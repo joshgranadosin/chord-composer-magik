@@ -1,4 +1,4 @@
-var services = angular.module('ChordServices', []);
+var services = angular.module('ChordServices', ['ngResource']);
 
 services.factory('Auth', ['$window', function($window) {
   return {
@@ -28,3 +28,16 @@ services.factory('Auth', ['$window', function($window) {
     }
   }
 }]);
+
+services.factory('SongSheetAPI', ['$resource', function($resource){
+	return $resource("/songsheet/:id", { id: "@_id" },
+		{
+      'create':  { method: 'POST' },
+      'index':   { method: 'GET', isArray: true },
+      'show':    { method: 'GET', isArray: false },
+      'update':  { method: 'PUT' },
+      'destroy': { method: 'DELETE' }
+    }
+  );
+}]);
+
