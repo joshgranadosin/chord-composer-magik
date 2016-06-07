@@ -37,10 +37,14 @@
 
 		<h2>Chord List</h2>
 
-		<div class="btn btn-default btn-sm populator" aria-label="Left Align"
-			ng-repeat="chord in chordList">
-
-			{{chord.root}}{{chord.mod}}</div>
+		<div class="btn-group" role="group" aria-label="..." ng-repeat="chord in chordList">
+  		<button type="button" class="btn btn-default btn-xs">
+  			{{chord.root}}{{chord.mod}}
+  		</button>
+  		<button type="button" class="btn btn-default btn-xs" ng-click="deleteChord({{$index}})">
+  			<span class="glyphicon glyphicon-remove"></span>
+  		</button>
+		</div>
 
 		<section style="height:20px;"></section>
 
@@ -75,9 +79,6 @@
 			<span class="glyphicon glyphicon-trash"></span>
 			<label> Drag unwanted chord labels here to delete them </label>
 		</section>
-
-		<h2>Debug</h2>
-		<p>{{connected}}</p>
 	</div>
 </div>
 <div class="container-flex full-area">
@@ -85,7 +86,7 @@
 		<h1>Woof <small> by Nori & Natto</small></h1>
 		<hr>
 		<label>Chord List:</label>
-		<div class="chord-top">
+		<div id="chord-tab-top">
 			<div id="chord1"></div>
 		</div>
 		<hr>

@@ -56,3 +56,7 @@ p.lyrics{
 	line-height: 60px;
 	white-space: pre-line;
 }
+
+div.chord-tab{
+	display: inline-block;
+}

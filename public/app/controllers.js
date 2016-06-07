@@ -12,12 +12,11 @@ ctrls.controller('LoginCtrl', ['$scope', '$state', '$window',
 
 ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window',
 	function($scope, $state, $window){
-		$scope.connected = "Connected to ComposerCtrl";
-
-		// add chords to chord list
+		// keep a list and an input field for new chords
 		$scope.chordList = [];
 		$scope.newChordInput = "";
 		
+		// add chords
 		$scope.addChord = function(){
 			// Grab string
 			var newChordStr = $scope.newChordInput;
@@ -58,8 +57,11 @@ ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window',
 			// Add the chord as an obj to the list
 			$scope.chordList.push({root: chordRoot, mod: chordMod, tab: chordTab});
 			console.log($scope.chordList);
+
+			resetTabs();
 		}
 
+		//helper function for checking duplicates
 		function isDuplicate(tab){
 			// check to see if the list is empty
 			if($scope.chordList.length === 0){
@@ -73,5 +75,33 @@ ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window',
 			}
 			return false;
 		};
+
+		// redraw the tabs when tabs are added or deleted
+		function resetTabs(){
+			// find the tab lists
+			var tabTop = document.getElementById('chord-tab-top');
+
+			// clear the tab lists
+			tabTop.innerHTML = '';
+
+			// repopulate
+			$scope.chordList.forEach(function(chord, index){
+				// create a div element and assign it a new id;
+				var chordDiv = document.createElement('div');
+				chordDiv.id = 'chord' + index;
+				chordDiv.className = 'chord-tab';
+
+				// attach the element to the tab lists
+				tabTop.appendChild(chordDiv);
+
+				// draw the tab in the div;
+				Raphael.chord('chord' + index, chord.tab, chord.root + chord.mod);
+			})
+		};
+
+		// delete tabs
+		function deleteChord(chordID){
+			console.log(chordID);
+		}
 	}
 ]);
