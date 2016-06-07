@@ -4,20 +4,41 @@ ctrls.controller('LoginCtrl', ['$scope', '$state', '$window',
 	function($scope, $state, $window){
 		$scope.connected = "Connected to LoginCtrl";
 
+		$scope.email = '';
+		$scope.password = '';
+
+		$scope.login = function(){
+			var payload = {email: $scope.email, password: $scope.password};
+			console.log(payload);
+
+			$http.post('/login', payload).then(function success(res){
+
+			});
+		}
+
 		$scope.linkTo = function(str){
 			$state.go(str);
 		}
 	}
 ]);
 
-ctrls.controller('SignUpCtrl', ['$scope', '$state', '$window',
-	function($scope, $state, $window){
+ctrls.controller('SignUpCtrl', ['$scope', '$state', '$window', '$http',
+	function($scope, $state, $window, $http){
 		$scope.connected = "Connected to SignUpCtrl";
 
 		$scope.email = '';
 		$scope.password = '';
-		$scope.signup = function(){
 
+		$scope.signup = function(){
+			var payload = {email: $scope.email, password: $scope.password};
+
+			console.log(payload);
+
+			$http.post('/signup', payload).then(function success(res){
+				console.log(res);
+				$state.go('composer');
+				
+			});
 		}
 
 		$scope.linkTo = function(str){
@@ -26,11 +47,13 @@ ctrls.controller('SignUpCtrl', ['$scope', '$state', '$window',
 	}
 ]);
 
-ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window', 'SongSheetAPI'
+ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window', 'SongSheetAPI',
 	function($scope, $state, $window, SongSheetAPI){
 		// keep a list and an input field for new chords
 		$scope.chordList = [];
 		$scope.newChordInput = "";
+		$scope.songArtist = "";
+		$scope.songName = "";
 		
 		// add chords
 		$scope.addChord = function(){
@@ -131,6 +154,20 @@ ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window', 'SongSheetAPI'
 			// prepend new element to lyrics
 			lyrics = document.getElementById('lyrics');
 			lyrics.insertBefore(newLabel, lyrics.childNodes[0]);
+		}
+
+		$scope.save = function(){
+			var payload = {
+				name: $scope.songName,
+				artist: $scope.songArtist,
+				chords: $scope.chordList,
+				data: document.getElementById('lyrics').innerHTML
+			}
+
+			//should have a check to see if this was a new doc
+			if(true){
+				SongSheetAPI.create(payload);
+			}
 		}
 
 /***** copied interactjs code *****/

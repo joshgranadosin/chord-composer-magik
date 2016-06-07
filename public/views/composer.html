@@ -13,11 +13,11 @@
 		<form>
 		  <div class="form-group">
 		    <label>Title:</label>
-		    <input type="text" class="form-control" placeholder="Title">
+		    <input type="text" class="form-control" placeholder="Title" ng-model="songTitle">
 		  </div>
 		  <div class="form-group">
 		    <label>Artist:</label>
-		    <input type="text" class="form-control" placeholder="Artist">
+		    <input type="text" class="form-control" placeholder="Artist" ng-model="songArtist">
 		  </div>
 		</form>
 
@@ -83,7 +83,8 @@
 </div>
 <div class="container-flex full-area">
 	<div class="container writing-area">
-		<h1>Woof <small> by Nori & Natto</small></h1>
+		<h1>{{songTitle}}</h1>
+		<h1><small>{{songArtist}}</small></h1>
 		<hr>
 		<label>Chord List:</label>
 		<div id="chord-tab-top">

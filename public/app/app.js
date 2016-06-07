@@ -1,6 +1,7 @@
 var app = angular.module('ChordApp', ['ChordCtrls', 'ui.router']);
 
-app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
+app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider'
+	function($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider){
 	$urlRouterProvider.otherwise('/');
 
 	$stateProvider
@@ -10,13 +11,16 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 		controller: 'LoginCtrl'
 	})
 	.state('signup', {
-		url: 'signup',
+		url: '/signup',
 		templateUrl: 'views/signup.html',
-		controller: 'SignupCtrl'
+		controller: 'SignUpCtrl'
 	})
 	.state('composer', {
 		url: '/composer',
 		templateUrl: 'views/composer.html',
 		controller: 'ComposerCtrl'
 	})
+
+	$httpProvider.interceptors.push('AuthInterceptor')
+ 	$locationProvider.html5Mode(true);
 }]);

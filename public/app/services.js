@@ -29,6 +29,18 @@ services.factory('Auth', ['$window', function($window) {
   }
 }]);
 
+services.factory('AuthInterceptor', ['Auth', function(Auth) {
+  return {
+    request: function(config) {
+      var token = Auth.getToken();
+      if (token) {
+        config.headers.Authorization = 'Bearer ' + token;
+      }
+      return config;
+    }
+  }
+}]);
+
 services.factory('SongSheetAPI', ['$resource', function($resource){
 	return $resource("/songsheet/:id", { id: "@_id" },
 		{
@@ -41,3 +53,11 @@ services.factory('SongSheetAPI', ['$resource', function($resource){
   );
 }]);
 
+// services.factory('UserAPI', ['$http', function($http){
+// 	return $resource("/user/",
+// 		{
+// 			'login':  { method: 'GET', isArray: false},
+// 			'signup': { method: 'POST', isArray: false},
+// 			'logout': { method: 'DELETE'}
+// 		}
+// }])

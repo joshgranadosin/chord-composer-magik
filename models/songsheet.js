@@ -12,6 +12,9 @@ var songsheetSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User'
 	},
+	chords: {
+		type: Array
+	},
 	data: {
 		type: String,
 		required: [true, "Nothing to save!?"]
