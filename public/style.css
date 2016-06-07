@@ -68,5 +68,23 @@ div.chord-label{
   line-height: normal;
   padding: 3px;
   color: #3369E8;
-
 }
+
+/* draggable special classes */
+
+div.dragging{
+	background-color: #3369E8;
+	color: white;	
+}
+
+div.can-drop{
+	border-color: red;
+	background-color: red;
+	color: white;
+}
+
+section.drop-target{
+	border-color: blue;
+	color: blue;
+}
+

@@ -122,7 +122,7 @@ ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window',
 		interact('.draggable')
 		  .draggable({
 		    // enable inertial throwing
-		    inertia: true,
+		    inertia: false,
 		    // keep the element within the area of it's parent
 		    restrict: {
 		      restriction: "parent",
@@ -135,13 +135,17 @@ ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window',
 		    // call this function on every dragmove event
 		    onmove: dragMoveListener,
 		    // call this function on every dragend event
-		    onend: function (event) {
-		      var textEl = event.target.querySelector('p');
+		    // onend: function (event) { // don't need it now, but want to keep it
+		    // }
 
-		      textEl && (textEl.textContent =
-		        'moved a distance of '
-		        + (Math.sqrt(event.dx * event.dx +
-		                     event.dy * event.dy)|0) + 'px');
+		    // color the dragging item different
+		    onstart: function(event){
+		    	console.log('dragging');
+		    	event.target.classList.add('dragging');
+		    },
+
+		    onend: function(event){
+		    	event.target.classList.remove('dragging');
 		    }
 		  }
 		);
@@ -182,26 +186,26 @@ ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window',
 		    // feedback the possibility of a drop
 		    dropzoneElement.classList.add('drop-target');
 		    draggableElement.classList.add('can-drop');
-		    draggableElement.textContent = 'Dragged in';
 
-		    console.log('attempting to release restriction');
-		    console.log(event.draggable.options.drag.restrict.restriction);
+		    // allow the element to be dropped outside of the lyrics
 		    event.draggable.options.drag.restrict.restriction = '';
-		    console.log(event.draggable.options.drag.restrict.restriction);
+		    if(event.draggable.options.drag.restrict.restriction === ''){
+			    console.log('Restriction released');
+			  }
 		  },
 		  ondragleave: function (event) {
 		    // remove the drop feedback style
 		    event.target.classList.remove('drop-target');
 		    event.relatedTarget.classList.remove('can-drop');
-		    event.relatedTarget.textContent = 'Dragged out';
 
-		    console.log('attempting to enforce restriction');
-		    console.log(event.draggable.options.drag.restrict.restriction);
+		    // allow the element to snap back to the lyrics
 		    event.draggable.options.drag.restrict.restriction = 'parent';
-		    console.log(event.draggable.options.drag.restrict.restriction);
+		    if(event.draggable.options.drag.restrict.restriction === 'parent'){
+			    console.log("Restriction 'parent' enforced");
+			  }
 		  },
 		  ondrop: function (event) {
-		    //event.relatedTarget.style.display = 'none';
+		    // delete the element from the dom
 		    var deleteable = event.relatedTarget;
 		    deleteable.parentElement.removeChild(deleteable);
 		  },
