@@ -201,8 +201,9 @@ ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window',
 		    console.log(event.draggable.options.drag.restrict.restriction);
 		  },
 		  ondrop: function (event) {
-		    event.relatedTarget.textContent = 'Dropped';
-		    event.relatedTarget.style.display = 'none';
+		    //event.relatedTarget.style.display = 'none';
+		    var deleteable = event.relatedTarget;
+		    deleteable.parentElement.removeChild(deleteable);
 		  },
 		  ondropdeactivate: function (event) {
 		    // remove active dropzone feedback
