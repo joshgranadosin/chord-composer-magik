@@ -32,6 +32,7 @@ app.post('/login', function(req,res){
     	return res.json({err:err, message:"Email not found."});
    	}
     user.authenticated(req.body.password, function(err, result) {
+      console.log(err,result);
       if (err || !result){
       	return res.json({err:err, message:"Password does not match our records."})
       }

@@ -35,6 +35,7 @@ services.factory('AuthInterceptor', ['Auth', function(Auth) {
       var token = Auth.getToken();
       if (token) {
         config.headers.Authorization = 'Bearer ' + token;
+        console.log('AuthInterceptor sees a token')
       }
       return config;
     }

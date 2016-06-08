@@ -1,7 +1,7 @@
 var ctrls = angular.module('ChordCtrls', ['ChordServices']);
 
-ctrls.controller('LoginCtrl', ['$scope', '$state', '$window',
-	function($scope, $state, $window){
+ctrls.controller('LoginCtrl', ['$scope', '$state', '$window', '$http', 'Auth',
+	function($scope, $state, $window, $http, Auth){
 		$scope.connected = "Connected to LoginCtrl";
 
 		$scope.email = '';
@@ -12,7 +12,11 @@ ctrls.controller('LoginCtrl', ['$scope', '$state', '$window',
 			console.log(payload);
 
 			$http.post('/login', payload).then(function success(res){
-
+				Auth.saveToken(res.data.token);
+				console.log(res);
+				$state.go('composer');
+			}, function error(res){
+				console.log(res);
 			});
 		}
 
@@ -22,8 +26,8 @@ ctrls.controller('LoginCtrl', ['$scope', '$state', '$window',
 	}
 ]);
 
-ctrls.controller('SignUpCtrl', ['$scope', '$state', '$window', '$http',
-	function($scope, $state, $window, $http){
+ctrls.controller('SignUpCtrl', ['$scope', '$state', '$window', '$http', 'Auth',
+	function($scope, $state, $window, $http, Auth){
 		$scope.connected = "Connected to SignUpCtrl";
 
 		$scope.email = '';
@@ -35,9 +39,12 @@ ctrls.controller('SignUpCtrl', ['$scope', '$state', '$window', '$http',
 			console.log(payload);
 
 			$http.post('/signup', payload).then(function success(res){
+				Auth.saveToken(res.data.token);
 				console.log(res);
 				$state.go('composer');
-				
+
+			}, function error(res){
+				console.log(res);
 			});
 		}
 

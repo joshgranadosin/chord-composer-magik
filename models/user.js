@@ -48,19 +48,20 @@ userSchema.set('toJSON', {
 });
 
 // Authentication static method
-userSchema.statics.authenticate = function(pass) {
+userSchema.methods.authenticated = function(pass, next) {
+	console.log("Authenticating");
 	var self = this;
 	bcrypt.compare(pass, self.password, function(err, result){
-		console.log(result);
+		console.log(err, result);
 		if(err){
 	 		console.log(err);
-			return false;
+			return next(err);
 	 	}
 	 	else if(result === true) {
-	 		return result;
+	 		return next(null, result);
 		}
 		else {
-			return false;
+			return next(err);
 		}
 	});
 };

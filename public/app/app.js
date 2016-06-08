@@ -1,6 +1,6 @@
 var app = angular.module('ChordApp', ['ChordCtrls', 'ui.router']);
 
-app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider'
+app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider',
 	function($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider){
 	$urlRouterProvider.otherwise('/');
 
