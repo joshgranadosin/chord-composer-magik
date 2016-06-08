@@ -273,6 +273,8 @@ ctrls.controller('ComposerCtrl', [
 				SongSheetAPI.create(payload,
 					function success(res){
 						console.log(res);
+						CurrentSongSheet.set(res.doc._id);
+						console.log(CurrentSongSheet.get());
 					},
 					function error(res){
 						console.log(res);
