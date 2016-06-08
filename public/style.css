@@ -102,3 +102,10 @@ div.songlist{
 	float: right;
 	margin:15px;
 }
+
+/* printing-area */
+
+div.priting-area{
+	padding: 20px;
+	width: 511pt;
+}

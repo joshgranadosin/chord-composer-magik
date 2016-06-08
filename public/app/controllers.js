@@ -290,7 +290,6 @@ ctrls.controller('ComposerCtrl', [
 						console.log(res);
 					}
 			}
-			//SongSheetAPI.update(payload);
 		}
 
 		// log out by removing the token
@@ -325,8 +324,13 @@ ctrls.controller('ComposerCtrl', [
 			)
 		}
 
+		// send the print area to the printer
 		$scope.print = function(){
-			CurrentSongSheet.cache
+			var page = document.getElementsByClassName('writing-area')[0].innerHTML;
+			CurrentSongSheet.cache = page;
+			$state.go('print');
+			setTimeout(function(){document.getElementsByClassName('printing-area')[0].innerHTML = page;},1000)
+			
 		}
 
 /***** copied interactjs code *****/
