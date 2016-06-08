@@ -163,6 +163,14 @@ app.put('/songsheet/:id', function(req,res){
 app.delete('/songsheet/:id', function(req,res){
 	console.log('http DELETE at /songsheet/' + req.params.id);
   console.log(req.user);
+
+  Songsheet.findOneAndRemove({_id:req.params.id}, function(err, doc){
+    console.log(err,doc);
+    if(err){
+      return res.status(500).json({doc});
+    }
+    res.status(200).json({doc});
+  })
 });
 
 // login main page

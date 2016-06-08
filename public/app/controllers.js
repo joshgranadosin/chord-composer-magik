@@ -34,11 +34,10 @@ ctrls.controller('LoginCtrl', ['$scope', '$state', '$window', '$http', 'Auth', '
 
 ctrls.controller('SignUpCtrl', ['$scope', '$state', '$window', '$http', 'Auth',
 	function($scope, $state, $window, $http, Auth){
-		$scope.connected = "Connected to SignUpCtrl";
-
 		$scope.email = '';
 		$scope.password = '';
 
+		// sign up
 		$scope.signup = function(){
 			var payload = {email: $scope.email, password: $scope.password};
 
@@ -56,33 +55,41 @@ ctrls.controller('SignUpCtrl', ['$scope', '$state', '$window', '$http', 'Auth',
 			);
 		}
 
+		// move between places
 		$scope.linkTo = function(str){
 			$state.go(str);
 		}
 	}
 ]);
 
-ctrls.controller('SongListCtrl', ['$scope', '$state', '$window', '$http', 'Auth', 'SongSheetAPI', 'CurrentSongSheet',
+ctrls.controller('SongListCtrl', [
+	'$scope', '$state', '$window', '$http', 'Auth', 'SongSheetAPI', 'CurrentSongSheet',
 	function($scope, $state, $window, $http, Auth, SongSheetAPI, CurrentSongSheet){
 		$scope.userEmail = Auth.currentUser().email;
 		$scope.songSheets = [];
+		getSongList();
 
-		SongSheetAPI.index(
-			function success(data){
-				console.log('success', data);
-				$scope.songSheets = data;
-			},
-			function error(data){
-				console.log('error', data);
-			}
-		);
+		// grab the song list
+		function getSongList(){
+			SongSheetAPI.index(
+				function success(data){
+					console.log('success', data);
+					$scope.songSheets = data;
+				},
+				function error(data){
+					console.log('error', data);
+				}
+			);
+		}
 
+		// log out by deleting the token
 		$scope.logout = function(){
 			Auth.removeToken();
 			console.log('Token removed');
 			$state.go('login');
 		}
 
+		// pass along the song ID before going to the composer
 		$scope.open = function(songId){
 			console.log("open",songId);
 
@@ -90,17 +97,29 @@ ctrls.controller('SongListCtrl', ['$scope', '$state', '$window', '$http', 'Auth'
 			$state.go('composer');
 		}
 
+		// delete
 		$scope.delete = function(songId){
 			console.log("delete",songId);
+			SongSheetAPI.destroy({id:songId},
+				function success(res){
+					console.log(res);
+					getSongList();
+				},
+				function error(res){
+					console.log(res);
+				}
+			)
 		}
 
+		// move between places
 		$scope.linkTo = function(str){
 			$state.go(str);
 		}
 	}
 ]);
 
-ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window', 'Auth', 'SongSheetAPI', 'CurrentSongSheet',
+ctrls.controller('ComposerCtrl', [
+	'$scope', '$state', '$window', 'Auth', 'SongSheetAPI', 'CurrentSongSheet',
 	function($scope, $state, $window, Auth, SongSheetAPI, CurrentSongSheet){
 		// use default unless they're logged in.
 		$scope.userEmail = "you're logged in as Guest";
@@ -113,7 +132,9 @@ ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window', 'Auth', 'SongSh
 		$scope.newChordInput = "";
 		$scope.songArtist = " by Song Artist";
 		$scope.songTitle = "Song Title";
+		songId = undefined;
 
+		// grab the old info if it's a saved song
 		console.log(CurrentSongSheet.get());
 		if(CurrentSongSheet.get()){
 			SongSheetAPI.show({id:CurrentSongSheet.get()},
@@ -121,7 +142,9 @@ ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window', 'Auth', 'SongSh
 					$scope.chordList = res.chords;
 					$scope.songArtist = res.artist;
 					$scope.songTitle = res.title;
-					$scope.songId = res._id;
+					songId = res._id;
+					document.getElementById('lyrics').innerHTML = res.data;
+					resetTabs();
 				},
 				function error(res){
 					console.log('error', res);
@@ -244,18 +267,20 @@ ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window', 'Auth', 'SongSh
 				data: document.getElementById('lyrics').innerHTML
 			}
 
-			//should have a check to see if this was a new doc
+			// make a new one
 			console.log(CurrentSongSheet.get())
 			if(!CurrentSongSheet.get()){
 				SongSheetAPI.create(payload,
 					function success(res){
-						console.log(data);
+						console.log(res);
 					},
 					function error(res){
-						console.log(data);
+						console.log(res);
 					}
 				);
 			}
+
+			// or update one
 			else{
 				SongSheetAPI.update({id:CurrentSongSheet.get()}, payload,
 					function success(res){
@@ -268,14 +293,40 @@ ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window', 'Auth', 'SongSh
 			//SongSheetAPI.update(payload);
 		}
 
+		// log out by removing the token
 		$scope.logout = function(){
 			Auth.removeToken();
 			console.log('Token removed');
 			$state.go('login');
 		}
 
-		$scope.print = function(){
+		$scope.delete = function(){
+			console.log("delete",CurrentSongSheet.get());
 
+			// if they're not logged in
+			if(!CurrentSongSheet.get() && !Auth.currentUser()){
+				return $state.go('login');
+			}
+
+			// if it's a new song
+			if(!CurrentSongSheet.get()){
+				return $state.go('songlist');
+			}
+
+			// delete
+			SongSheetAPI.destroy({id:CurrentSongSheet.get()},
+				function success(res){
+					console.log(res);
+					$state.go('songlist');
+				},
+				function error(res){
+					console.log(res);
+				}
+			)
+		}
+
+		$scope.print = function(){
+			CurrentSongSheet.cache
 		}
 
 /***** copied interactjs code *****/
