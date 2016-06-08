@@ -117,11 +117,14 @@ ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window', 'Auth', 'SongSh
 		console.log(CurrentSongSheet.get());
 		if(CurrentSongSheet.get()){
 			SongSheetAPI.show({id:CurrentSongSheet.get()},
-				function success(){
-					console.log('success', data);
+				function success(res){
+					$scope.chordList = res.chords;
+					$scope.songArtist = res.artist;
+					$scope.songTitle = res.title;
+					$scope.songId = res._id;
 				},
-				function error(data){
-					console.log('error', data);
+				function error(res){
+					console.log('error', res);
 				}
 			)
 		}

@@ -101,6 +101,14 @@ app.get('/songsheet/:id', function(req,res){
 	console.log('http GET at /songsheet/' + req.params.id + ' - songsheet show');
   console.log(req.user);
 
+  Songsheet.findOne({_id: req.params.id}, function(err, doc){
+    if(err || !doc){
+      console.log(err,doc);
+      return res.status(500).json({err:err, message:"Unable to find document."});
+    }
+    console.log(doc);
+    res.json(doc);
+  })
 });
 
 app.post('/songsheet', function(req,res){
