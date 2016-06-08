@@ -11,13 +11,16 @@ ctrls.controller('LoginCtrl', ['$scope', '$state', '$window', '$http', 'Auth',
 			var payload = {email: $scope.email, password: $scope.password};
 			console.log(payload);
 
-			$http.post('/login', payload).then(function success(res){
-				Auth.saveToken(res.data.token);
-				console.log(res);
-				$state.go('composer');
-			}, function error(res){
-				console.log(res);
-			});
+			$http.post('/login', payload).then(
+				function success(res){
+					Auth.saveToken(res.data.token);
+					console.log(res);
+					$state.go('composer');
+				},
+				function error(res){
+					console.log(res);
+				}
+			);
 		}
 
 		$scope.linkTo = function(str){
@@ -38,14 +41,16 @@ ctrls.controller('SignUpCtrl', ['$scope', '$state', '$window', '$http', 'Auth',
 
 			console.log(payload);
 
-			$http.post('/signup', payload).then(function success(res){
-				Auth.saveToken(res.data.token);
-				console.log(res);
-				$state.go('composer');
-
-			}, function error(res){
-				console.log(res);
-			});
+			$http.post('/signup', payload).then(
+				function success(res){
+					Auth.saveToken(res.data.token);
+					console.log(res);
+					$state.go('composer');
+				},
+				function error(res){
+					console.log(res);
+				}
+			);
 		}
 
 		$scope.linkTo = function(str){
@@ -54,8 +59,41 @@ ctrls.controller('SignUpCtrl', ['$scope', '$state', '$window', '$http', 'Auth',
 	}
 ]);
 
-ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window', 'SongSheetAPI',
-	function($scope, $state, $window, SongSheetAPI){
+ctrls.controller('SongListCtrl', ['$scope', '$state', '$window', '$http', 'Auth', 'SongSheetAPI',
+	function($scope, $state, $window, $http, Auth, SongSheetAPI){
+		$scope.userEmail = Auth.currentUser().email;
+		$scope.songSheets = [];
+
+		SongSheetAPI.index(
+			function success(data){
+				console.log('success', data);
+				$scope.songSheets = data;
+			},
+			function error(data){
+				console.log('error', data);
+			}
+		);
+
+		$scope.logout = function(){
+			Auth.removeToken();
+			console.log('Token removed');
+			$state.go('login');
+		}
+
+		$scope.open = function(){
+			$state.go('composer');
+		}
+
+		$scope.linkTo = function(str){
+			$state.go(str);
+		}
+	}]);
+
+ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window', 'Auth', 'SongSheetAPI',
+	function($scope, $state, $window, Auth, SongSheetAPI){
+		// login info
+		$scope.userEmail = Auth.currentUser().email;
+
 		// keep a list and an input field for new chords
 		$scope.chordList = [];
 		$scope.newChordInput = "";
@@ -172,9 +210,13 @@ ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window', 'SongSheetAPI',
 			}
 
 			//should have a check to see if this was a new doc
-			if(true){
-				SongSheetAPI.create(payload);
-			}
+			SongSheetAPI.update(payload);
+		}
+
+		$scope.logout = function(){
+			Auth.removeToken();
+			console.log('Token removed');
+			$state.go('login');
 		}
 
 /***** copied interactjs code *****/

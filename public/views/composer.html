@@ -1,10 +1,10 @@
 <div class="left-toolbar">
 	<div class="container-fluid">
-		<p class="pull-left">Hi, <a>
-			norinatto@mail.com
+		<p class="pull-left">Hi, <a ng-click="linkTo('songlist')">
+			{{userEmail}}
 		</a></p>
 
-		<a class="pull-right" href="#">Log out</a>
+		<a class="pull-right" href="#" ng-click="logout()">Log out</a>
 
 		<hr>
 

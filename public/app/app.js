@@ -20,6 +20,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
 		templateUrl: 'views/composer.html',
 		controller: 'ComposerCtrl'
 	})
+	.state('songlist', {
+		url: 'songlist',
+		templateUrl: 'views/songlist.html',
+		controller: 'SongListCtrl'
+	})
 
 	$httpProvider.interceptors.push('AuthInterceptor')
  	$locationProvider.html5Mode(true);

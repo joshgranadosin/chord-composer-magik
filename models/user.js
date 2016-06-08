@@ -40,10 +40,20 @@ userSchema.pre('save', function(next){
 });
 
 // Don't send out the hashed password
-userSchema.set('toJSON', {
+// userSchema.set('toJSON', {
+//   transform: function(doc, ret, options) {
+//     delete ret.password;
+//     return ret;
+//   }
+// });
+
+userSchema.set('toObject', {
   transform: function(doc, ret, options) {
-    delete ret.password;
-    return ret;
+    var retJson = {
+      email: ret.email,
+      songsheets: ret.songsheets
+    };
+    return retJson;
   }
 });
 

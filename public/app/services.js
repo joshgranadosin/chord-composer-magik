@@ -20,6 +20,7 @@ services.factory('Auth', ['$window', function($window) {
         var token = this.getToken();
         try {
           var payload = JSON.parse($window.atob(token.split('.')[1]));
+          console.log('payload', payload);
           return payload;
         } catch(err) {
           return false;
@@ -53,12 +54,3 @@ services.factory('SongSheetAPI', ['$resource', function($resource){
     }
   );
 }]);
-
-// services.factory('UserAPI', ['$http', function($http){
-// 	return $resource("/user/",
-// 		{
-// 			'login':  { method: 'GET', isArray: false},
-// 			'signup': { method: 'POST', isArray: false},
-// 			'logout': { method: 'DELETE'}
-// 		}
-// }])

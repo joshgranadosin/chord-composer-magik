@@ -37,7 +37,8 @@ app.post('/login', function(req,res){
       	return res.json({err:err, message:"Password does not match our records."})
       }
       // make a token & send it as JSON
-      var token = jwt.sign(user, secret);
+      // I noticed that white/blacklisting is not working because it's sending the whole doc, forced method.
+      var token = jwt.sign(user.toObject(), secret);
       res.send({user: user, token: token});
     });
   });
