@@ -143,6 +143,21 @@ app.post('/songsheet', function(req,res){
 app.put('/songsheet/:id', function(req,res){
 	console.log('http PUT at /songsheet/' + req.params.id);
   console.log(req.user);
+  console.log(req.body);
+
+  Songsheet.findByIdAndUpdate(req.params.id,
+    {
+      $set: {
+        title: req.body.title,
+        artist: req.body.artist,
+        chords: req.body.chords,
+        data: req.body.data
+      }
+    }, function (err, doc) {
+      if (err) return handleError(err);
+      res.status(200).json({doc});
+    }
+  );
 });
 
 app.delete('/songsheet/:id', function(req,res){

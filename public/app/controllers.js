@@ -113,7 +113,7 @@ ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window', 'Auth', 'SongSh
 		$scope.newChordInput = "";
 		$scope.songArtist = " by Song Artist";
 		$scope.songTitle = "Song Title";
-		$scope.songId = null;
+
 		console.log(CurrentSongSheet.get());
 		if(CurrentSongSheet.get()){
 			SongSheetAPI.show({id:CurrentSongSheet.get()},
@@ -245,15 +245,25 @@ ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window', 'Auth', 'SongSh
 			}
 
 			//should have a check to see if this was a new doc
-			if(!CurrentSongSheet.id){
+			console.log(CurrentSongSheet.get())
+			if(!CurrentSongSheet.get()){
 				SongSheetAPI.create(payload,
-					function success(data){
+					function success(res){
 						console.log(data);
 					},
-					function error(data){
+					function error(res){
 						console.log(data);
 					}
 				);
+			}
+			else{
+				SongSheetAPI.update({id:CurrentSongSheet.get()}, payload,
+					function success(res){
+						console.log(res);
+					}),
+					function error(res){
+						console.log(res);
+					}
 			}
 			//SongSheetAPI.update(payload);
 		}
