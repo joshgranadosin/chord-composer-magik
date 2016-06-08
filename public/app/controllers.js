@@ -334,8 +334,7 @@ ctrls.controller('ComposerCtrl', [
 			setTimeout(function(){
 				document.getElementsByClassName('printing-area')[0].innerHTML = page;
 				window.print();
-			},1000)
-			
+			},1000)		
 		}
 
 /***** copied interactjs code *****/
@@ -436,7 +435,6 @@ ctrls.controller('ComposerCtrl', [
 		    event.target.classList.remove('drop-target');
 		  }
 		});
-
 /***** end copied interactjs code *****/
 	}
 ]);
