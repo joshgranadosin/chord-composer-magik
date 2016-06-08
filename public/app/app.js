@@ -21,7 +21,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
 		controller: 'ComposerCtrl'
 	})
 	.state('songlist', {
-		url: 'songlist',
+		url: '/songlist',
 		templateUrl: 'views/songlist.html',
 		controller: 'SongListCtrl'
 	})

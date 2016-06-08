@@ -34,6 +34,7 @@ app.post('/login', function(req,res){
     user.authenticated(req.body.password, function(err, result) {
       console.log(err,result);
       if (err || !result){
+        console.log(err,result);
       	return res.json({err:err, message:"Password does not match our records."})
       }
       // make a token & send it as JSON
@@ -55,6 +56,7 @@ app.post('/signup', function(req,res){
 
   newUser.save(function(err,user){
     if(err){
+      console.log(err);
       return res.json({err:err, message:"Unable to create user account"});
     }
     else {
@@ -64,34 +66,78 @@ app.post('/signup', function(req,res){
   })
 });
 
-// logout route
-// app.delete('/logout', function(req,res){
-// 	console.log('http DELETE at /logout');
-// });
-
 // songsheet index
-app.get('songsheet/', function(req,res){
+app.get('/songsheet/', function(req,res){
  	console.log('http GET at songheet/ - songsheet index');
   console.log(req.user);
+
+  User.findOne({email:req.user.email}, function(err, user){
+    if (err || !user){
+      console.log(err,user);
+      return res.status(500).json({err:err, message:"Email not found."});
+    }
+    Songsheet.find({_creator: user._id}, function(err, data){
+      if(err || !data){
+        console.log(err,data);
+        return res.status(500).json({err:err, message:"Unable to save document."});
+      }
+
+      var songlist = [];
+      data.forEach(function(songsheet){
+        var info = {
+          title: songsheet.title,
+          artist: songsheet.artist,
+          _id: songsheet._id
+        }
+        songlist.push(info);
+      });
+      res.json(songlist);
+    })
+  })
+
 });
 
-app.get('songsheet/:id', function(req,res){
+app.get('/songsheet/:id', function(req,res){
 	console.log('http GET at /songsheet/' + req.params.id + ' - songsheet show');
   console.log(req.user);
 
 });
 
-app.post('songsheet', function(req,res){
+app.post('/songsheet', function(req,res){
 	console.log('http POST at /songsheet');
   console.log(req.user);
+  console.log(req.body);
+
+  User.findOne({email:req.user.email}, function(err, user){
+    if (err || !user){
+      console.log(err);
+      return res.status(500).json({err:err, message:"Email not found."});
+    }
+    newSongsheet = new Songsheet({
+      title: req.body.title,
+      artist: req.body.artist,
+      _creator: user._id,
+      chords: req.body.chords,
+      data: req.body.data
+    });
+
+    newSongsheet.save(function(err, doc){
+      if (err || !doc){
+        console.log(err);
+        return res.status(500).json({err:err, message:"Unable to save document."});
+      }
+      res.status(200).json({doc});
+    });
+  });
+
 });
 
-app.put('songsheet/:id', function(req,res){
+app.put('/songsheet/:id', function(req,res){
 	console.log('http PUT at /songsheet/' + req.params.id);
   console.log(req.user);
 });
 
-app.delete('songsheet/:id', function(req,res){
+app.delete('/songsheet/:id', function(req,res){
 	console.log('http DELETE at /songsheet/' + req.params.id);
   console.log(req.user);
 });

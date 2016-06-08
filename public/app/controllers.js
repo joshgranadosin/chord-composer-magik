@@ -1,11 +1,14 @@
 var ctrls = angular.module('ChordCtrls', ['ChordServices']);
 
-ctrls.controller('LoginCtrl', ['$scope', '$state', '$window', '$http', 'Auth',
-	function($scope, $state, $window, $http, Auth){
+ctrls.controller('LoginCtrl', ['$scope', '$state', '$window', '$http', 'Auth', 'CurrentSongSheet',
+	function($scope, $state, $window, $http, Auth, CurrentSongSheet){
+		// variables on the page
 		$scope.connected = "Connected to LoginCtrl";
-
 		$scope.email = '';
 		$scope.password = '';
+
+		// clear the current songsheet
+		CurrentSongSheet.clear();
 
 		$scope.login = function(){
 			var payload = {email: $scope.email, password: $scope.password};
@@ -15,7 +18,7 @@ ctrls.controller('LoginCtrl', ['$scope', '$state', '$window', '$http', 'Auth',
 				function success(res){
 					Auth.saveToken(res.data.token);
 					console.log(res);
-					$state.go('composer');
+					$state.go('songlist');
 				},
 				function error(res){
 					console.log(res);
@@ -89,17 +92,23 @@ ctrls.controller('SongListCtrl', ['$scope', '$state', '$window', '$http', 'Auth'
 		}
 	}]);
 
-ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window', 'Auth', 'SongSheetAPI',
-	function($scope, $state, $window, Auth, SongSheetAPI){
-		// login info
-		$scope.userEmail = Auth.currentUser().email;
+ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window', 'Auth', 'SongSheetAPI', 'CurrentSongSheet',
+	function($scope, $state, $window, Auth, SongSheetAPI, CurrentSongSheet){
+		// use default unless they're logged in.
+		$scope.userEmail = "you're logged in as Guest";
+		if(Auth.currentUser()){
+			$scope.userEmail = Auth.currentUser().email;
+		}
 
-		// keep a list and an input field for new chords
+		// use default if it's a new song
 		$scope.chordList = [];
 		$scope.newChordInput = "";
-		$scope.songArtist = "";
-		$scope.songName = "";
-		$scope.songId = '';
+		$scope.songArtist = " by Song Artist";
+		$scope.songTitle = "Song Title";
+		$scope.songId = null;
+		if(false){
+			//TODO, recover a song.
+		}
 		
 		// add chords
 		$scope.addChord = function(){
@@ -203,15 +212,21 @@ ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window', 'Auth', 'SongSh
 		}
 
 		$scope.save = function(){
+			// Don't save if they're not logged in.
+			if(!Auth.currentUser()){
+				console.log("Must be logged in to save.");
+				return;
+			}
+
 			var payload = {
-				name: $scope.songName,
+				title: $scope.songTitle,
 				artist: $scope.songArtist,
 				chords: $scope.chordList,
 				data: document.getElementById('lyrics').innerHTML
 			}
 
 			//should have a check to see if this was a new doc
-			if(true){
+			if(!CurrentSongSheet.id){
 				SongSheetAPI.create(payload,
 					function success(data){
 						console.log(data);
@@ -228,6 +243,10 @@ ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window', 'Auth', 'SongSh
 			Auth.removeToken();
 			console.log('Token removed');
 			$state.go('login');
+		}
+
+		$scope.print = function(){
+
 		}
 
 /***** copied interactjs code *****/

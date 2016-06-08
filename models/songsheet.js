@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var songsheetSchema = new mongoose.Schema({
-	name: {
+	title: {
 		type: String,
 		required: [true, "Please name your songsheet."]
 	},
