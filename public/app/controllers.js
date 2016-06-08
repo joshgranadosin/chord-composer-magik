@@ -99,6 +99,7 @@ ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window', 'Auth', 'SongSh
 		$scope.newChordInput = "";
 		$scope.songArtist = "";
 		$scope.songName = "";
+		$scope.songId = '';
 		
 		// add chords
 		$scope.addChord = function(){
@@ -210,7 +211,17 @@ ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window', 'Auth', 'SongSh
 			}
 
 			//should have a check to see if this was a new doc
-			SongSheetAPI.update(payload);
+			if(true){
+				SongSheetAPI.create(payload,
+					function success(data){
+						console.log(data);
+					},
+					function error(data){
+						console.log(data);
+					}
+				);
+			}
+			//SongSheetAPI.update(payload);
 		}
 
 		$scope.logout = function(){

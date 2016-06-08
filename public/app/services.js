@@ -54,3 +54,16 @@ services.factory('SongSheetAPI', ['$resource', function($resource){
     }
   );
 }]);
+
+services.service('currentSongSheet', function () {
+  var songSheet = undefined;
+
+  return {
+    get: function () {
+        return songSheet;
+    },
+    set: function(value) {
+        songSheet = value;
+    }
+  };
+});
