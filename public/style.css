@@ -56,7 +56,7 @@ div.writing-area{
 	width: 511pt;
 }
 
-p#lyrics{
+div#lyrics{
 	line-height: 60px;
 	white-space: pre-line;
 }

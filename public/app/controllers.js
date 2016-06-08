@@ -327,9 +327,12 @@ ctrls.controller('ComposerCtrl', [
 		// send the print area to the printer
 		$scope.print = function(){
 			var page = document.getElementsByClassName('writing-area')[0].innerHTML;
-			CurrentSongSheet.cache = page;
+			//CurrentSongSheet.cache = page;
 			$state.go('print');
-			setTimeout(function(){document.getElementsByClassName('printing-area')[0].innerHTML = page;},1000)
+			setTimeout(function(){
+				document.getElementsByClassName('printing-area')[0].innerHTML = page;
+				window.print();
+			},1000)
 			
 		}
 
