@@ -92,3 +92,13 @@ section.drop-target{
 	color: blue;
 }
 
+/* songlist classes */
+
+h2.songlist{
+	display:inline-block
+}
+
+div.songlist{
+	float: right;
+	margin:15px;
+}

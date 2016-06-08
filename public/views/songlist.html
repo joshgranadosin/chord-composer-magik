@@ -1,7 +1,30 @@
-{{userEmail}}
-
-<div ng-repeat="songSheet in songSheets">
-{{songSheet}}
-</div>
-
 <a ng-click="logout()">Log out</a>
+
+<div class="container-fluid">
+	<h1>Welcome, {{userEmail}}</h1>
+	<a class="pull-right" ng-click="logout()">Log out.</a>
+	<hr>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<div class="well">
+			<h2 class="songlist">New Song </h2>
+			<h2 class="songlist"><small>by {{userEmail}}</small></h2>
+			<div class="songlist">
+				<button type="button" class="btn btn-primary" ng-click="linkTo('composer')">
+				  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create New Songsheet
+				</button>
+			</div>
+		</div>
+	<div ng-repeat="songSheet in songSheets" class="well">
+		<h2 class="songlist">{{songSheet.title}} </h2>
+		<h2 class="songlist"><small>by {{songSheet.artist}}</small></h2>
+			<div class="songlist">
+				<button type="button" class="btn btn-primary" ng-click="open(songSheet._id)">
+				  <span class="glyphicon glyphicon-folder-open" aria-hidden="true" style="padding-right: 5px"></span> Open
+				</button>
+				<button type="button" class="btn btn-danger" ng-click="delete(songSheet._id)">
+				  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete
+				</button>	
+			</div>
+		</div>
+	</div>
+</div>
