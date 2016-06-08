@@ -62,8 +62,8 @@ ctrls.controller('SignUpCtrl', ['$scope', '$state', '$window', '$http', 'Auth',
 	}
 ]);
 
-ctrls.controller('SongListCtrl', ['$scope', '$state', '$window', '$http', 'Auth', 'SongSheetAPI',
-	function($scope, $state, $window, $http, Auth, SongSheetAPI){
+ctrls.controller('SongListCtrl', ['$scope', '$state', '$window', '$http', 'Auth', 'SongSheetAPI', 'CurrentSongSheet',
+	function($scope, $state, $window, $http, Auth, SongSheetAPI, CurrentSongSheet){
 		$scope.userEmail = Auth.currentUser().email;
 		$scope.songSheets = [];
 
@@ -83,14 +83,22 @@ ctrls.controller('SongListCtrl', ['$scope', '$state', '$window', '$http', 'Auth'
 			$state.go('login');
 		}
 
-		$scope.open = function(){
+		$scope.open = function(songId){
+			console.log("open",songId);
+
+			CurrentSongSheet.set(songId);
 			$state.go('composer');
+		}
+
+		$scope.delete = function(songId){
+			console.log("delete",songId);
 		}
 
 		$scope.linkTo = function(str){
 			$state.go(str);
 		}
-	}]);
+	}
+]);
 
 ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window', 'Auth', 'SongSheetAPI', 'CurrentSongSheet',
 	function($scope, $state, $window, Auth, SongSheetAPI, CurrentSongSheet){
@@ -106,8 +114,16 @@ ctrls.controller('ComposerCtrl', ['$scope', '$state', '$window', 'Auth', 'SongSh
 		$scope.songArtist = " by Song Artist";
 		$scope.songTitle = "Song Title";
 		$scope.songId = null;
-		if(false){
-			//TODO, recover a song.
+		console.log(CurrentSongSheet.get());
+		if(CurrentSongSheet.get()){
+			SongSheetAPI.show({id:CurrentSongSheet.get()},
+				function success(){
+					console.log('success', data);
+				},
+				function error(data){
+					console.log('error', data);
+				}
+			)
 		}
 		
 		// add chords
