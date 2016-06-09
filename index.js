@@ -29,13 +29,13 @@ app.post('/login', function(req,res){
 	console.log('http POST at /login');
   User.findOne({email: req.body.email}, function(err, user) {
     if (err || !user){
-    	return res.json({err:err, message:"Email not found."});
+    	return res.status(401).json({err:err, message:"Email not found."});
    	}
     user.authenticated(req.body.password, function(err, result) {
       console.log(err,result);
       if (err || !result){
         console.log(err,result);
-      	return res.json({err:err, message:"Password does not match our records."})
+      	return res.status(401).json({err:err, message:"Password does not match our records."})
       }
       // make a token & send it as JSON
       // I noticed that white/blacklisting is not working because it's sending the whole doc, forced method.
@@ -57,7 +57,7 @@ app.post('/signup', function(req,res){
   newUser.save(function(err,user){
     if(err){
       console.log(err);
-      return res.json({err:err, message:"Unable to create user account"});
+      return res.status(401).json({err:err, message:"Unable to create user account"});
     }
     else {
       var token = jwt.sign(user, secret);
