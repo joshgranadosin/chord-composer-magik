@@ -1,5 +1,17 @@
 var ctrls = angular.module('ChordCtrls', ['ChordServices']);
 
+ctrls.filter('chordFilter', function() {
+  return function(input) {
+    if(input === 'maj'){
+    	return '';
+    }
+    if(input === 'min'){
+    	return 'm';
+    }
+    return input;
+  }
+});
+
 ctrls.controller('LoginCtrl', ['$scope', '$state', '$window', '$http', 'Auth', 'CurrentSongSheet',
 	function($scope, $state, $window, $http, Auth, CurrentSongSheet){
 		// variables on the page
@@ -147,7 +159,7 @@ ctrls.controller('ComposerCtrl', [
 		// use default if it's a new song
 		$scope.chordList = [];
 		$scope.newChordInput = "";
-		$scope.songArtist = " by Song Artist";
+		$scope.songArtist = "Song Artist";
 		$scope.songTitle = "Song Title";
 		$scope.tabDisplay = 'top';
 		var songId = undefined;
@@ -200,6 +212,10 @@ ctrls.controller('ComposerCtrl', [
 			if(accidental){chordRoot = newChordStr.substring(0,2);}
 			else{chordRoot = newChordStr[0];}
 
+			// Capitalize
+			chordRoot = chordRoot.toUpperCase();
+			console.log(chordRoot);
+
 			// Grab the modifier if it exists;
 			var chordMod;
 			if(modified && accidental){chordMod = newChordStr.substring(2);}
@@ -210,7 +226,7 @@ ctrls.controller('ComposerCtrl', [
 			if(chordMod === 'm'){chordMod = 'min'}
 
 			// Find the Chord
-			var chordTab = Raphael.chord.find(chordRoot.toUpperCase(), chordMod, 1);
+			var chordTab = Raphael.chord.find(chordRoot, chordMod, 1);
 			if(chordTab === undefined){
 				console.log('Sorry, not a valid chord. Check your spelling.')
 				swal('Chord Not Found', 'Sorry, please check your spelling.', 'info');
@@ -274,7 +290,16 @@ ctrls.controller('ComposerCtrl', [
 
 				// attempt to ensure redraw
 				setTimeout(function(){
-					Raphael.chord('chord' + index, chord.tab, chord.root + chord.mod);
+					if(chord.mod === 'maj'){
+						Raphael.chord('chord' + index, chord.tab, chord.root);
+					}
+					else if(chord.mod === 'min'){
+						Raphael.chord('chord' + index, chord.tab, chord.root + 'm');
+					}
+					else{
+						Raphael.chord('chord' + index, chord.tab, chord.root + chord.mod);
+					}
+					$scope.newChordInput = '';
 				},10);
 			})
 		};
@@ -290,7 +315,16 @@ ctrls.controller('ComposerCtrl', [
 			// create the element and add the text;
 			var newLabel = document.createElement('div');
 			newLabel.className = 'draggable ' + chord.root + chord.mod + ' chord-label';
-			newLabel.innerHTML = chord.root + chord.mod;
+
+			if(chord.mod === 'maj'){
+				newLabel.innerHTML = chord.root;
+			}
+			else if(chord.mod === 'min'){
+				newLabel.innerHTML = chord.root + 'm';
+			}
+			else{
+				newLabel.innerHTML = chord.root + chord.mod;
+			}
 
 			// prepend new element to lyrics
 			lyrics = document.getElementById('lyrics');

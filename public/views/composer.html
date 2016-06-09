@@ -39,7 +39,7 @@
 
 		<div class="btn-group" role="group" aria-label="..." ng-repeat="chord in chordList">
   		<button type="button" class="btn btn-default btn-xs" ng-click="addLabel(chord)">
-  			{{chord.root}}{{chord.mod}}
+  			{{chord.root}} {{chord.mod | chordFilter}}
   		</button>
   		<button type="button" class="btn btn-default btn-xs" ng-click="deleteChord($index)">
   			<span class="glyphicon glyphicon-remove"></span>
@@ -86,7 +86,7 @@
 <div class="container-flex full-area">
 	<div class="container writing-area">
 		<h1>{{songTitle}}</h1>
-		<h1><small>{{songArtist}}</small></h1>
+		<h1><small> by {{songArtist}}</small></h1>
 		<hr>
 		<div ng-class="{'hidden':!(tabDisplay === 'top')}">
 			<label>Chord List:</label>
