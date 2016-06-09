@@ -352,8 +352,11 @@ ctrls.controller('ComposerCtrl', [
 		}
 
 		// move between places
-		$scope.linkTo = function(str){
-			$state.go(str);
+		$scope.clickName = function(){
+			if(Auth.currentUser()){
+				return $state.go('songlist');
+			}
+			return $state.go('signup');
 		}
 
 		$scope.changeTabDisplay = function(){
