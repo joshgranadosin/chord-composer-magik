@@ -349,6 +349,9 @@ ctrls.controller('ComposerCtrl', [
 			setTimeout(function(){
 				document.getElementsByClassName('printing-area')[0].innerHTML = page;
 				window.print();
+				setTimeout(function(){
+					window.history.back();
+				}, 10)
 			},1000)		
 		}
 
