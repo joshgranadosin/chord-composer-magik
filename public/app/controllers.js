@@ -3,7 +3,6 @@ var ctrls = angular.module('ChordCtrls', ['ChordServices']);
 ctrls.controller('LoginCtrl', ['$scope', '$state', '$window', '$http', 'Auth', 'CurrentSongSheet',
 	function($scope, $state, $window, $http, Auth, CurrentSongSheet){
 		// variables on the page
-		$scope.connected = "Connected to LoginCtrl";
 		$scope.email = '';
 		$scope.password = '';
 
@@ -132,7 +131,9 @@ ctrls.controller('ComposerCtrl', [
 		$scope.newChordInput = "";
 		$scope.songArtist = " by Song Artist";
 		$scope.songTitle = "Song Title";
-		songId = undefined;
+		$scope.tabDisplay = 'top';
+		var songId = undefined;
+		var tabDisplaySection = document.getElementById('chord-tab-' + $scope.tabDisplay);
 
 		// grab the old info if it's a saved song
 		console.log(CurrentSongSheet.get());
@@ -142,6 +143,7 @@ ctrls.controller('ComposerCtrl', [
 					$scope.chordList = res.chords;
 					$scope.songArtist = res.artist;
 					$scope.songTitle = res.title;
+					$scope.tabDisplay = res.tabs;
 					songId = res._id;
 					document.getElementById('lyrics').innerHTML = res.data;
 					resetTabs();
@@ -214,11 +216,17 @@ ctrls.controller('ComposerCtrl', [
 
 		// redraw the tabs when tabs are added or deleted
 		function resetTabs(){
-			// find the tab lists
-			var tabTop = document.getElementById('chord-tab-top');
+			// don't bother drawing if none is selected
+			if($scope.tabDisplay === 'none'){
+				return;
+			}
 
 			// clear the tab lists
-			tabTop.innerHTML = '';
+			tabDisplaySection.innerHTML = '';
+
+			// find the tab lists
+			tabDisplaySection = document.getElementById('chord-tab-' + $scope.tabDisplay);
+			console.log(tabDisplaySection);
 
 			// repopulate
 			$scope.chordList.forEach(function(chord, index){
@@ -228,10 +236,15 @@ ctrls.controller('ComposerCtrl', [
 				chordDiv.className = 'chord-tab';
 
 				// attach the element to the tab lists
-				tabTop.appendChild(chordDiv);
+				tabDisplaySection.appendChild(chordDiv);
 
 				// draw the tab in the div;
-				Raphael.chord('chord' + index, chord.tab, chord.root + chord.mod);
+				console.log(chord.root + chord.mod);
+
+				// attempt to ensure redraw
+				setTimeout(function(){
+					Raphael.chord('chord' + index, chord.tab, chord.root + chord.mod);
+				},10);
 			})
 		};
 
@@ -264,7 +277,8 @@ ctrls.controller('ComposerCtrl', [
 				title: $scope.songTitle,
 				artist: $scope.songArtist,
 				chords: $scope.chordList,
-				data: document.getElementById('lyrics').innerHTML
+				data: document.getElementById('lyrics').innerHTML,
+				tabs: $scope.tabDisplay
 			}
 
 			// make a new one
@@ -335,6 +349,16 @@ ctrls.controller('ComposerCtrl', [
 				document.getElementsByClassName('printing-area')[0].innerHTML = page;
 				window.print();
 			},1000)		
+		}
+
+		// move between places
+		$scope.linkTo = function(str){
+			$state.go(str);
+		}
+
+		$scope.changeTabDisplay = function(){
+			console.log($scope.tabDisplay);
+			resetTabs();
 		}
 
 /***** copied interactjs code *****/

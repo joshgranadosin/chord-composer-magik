@@ -79,6 +79,10 @@ form.add-chord{
 	display: inline-flex;
 }
 
+div.hidden{
+	display: none;
+}
+
 /* draggable special classes */
 
 div.dragging{
@@ -106,6 +110,10 @@ h2.songlist{
 div.songlist{
 	float: right;
 	margin:15px;
+}
+
+a.logout{
+	padding: 25px;
 }
 
 /* printing-area */

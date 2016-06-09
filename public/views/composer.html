@@ -65,13 +65,13 @@
     <label>Show Chord Legend:</label>
     <section>
 			<label class="radio-inline">
-			  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">Top 
+			  <input type="radio" name="chordList" ng-change="changeTabDisplay()" ng-model="tabDisplay" value="top">Top 
 			</label>
 			<label class="radio-inline">
-			  <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">Bottom 
+			  <input type="radio" name="chordList" ng-change="changeTabDisplay()" ng-model="tabDisplay" value="bottom">Bottom 
 			</label>
 			<label class="radio-inline">
-			  <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">None 
+			  <input type="radio" name="chordList" ng-change="changeTabDisplay()" ng-model="tabDisplay" value="none">None 
 			</label>
 		</section>
 
@@ -88,15 +88,23 @@
 		<h1>{{songTitle}}</h1>
 		<h1><small>{{songArtist}}</small></h1>
 		<hr>
-		<label>Chord List:</label>
-		<div id="chord-tab-top">
-			<div id="chord1"></div>
+		<div ng-class="{'hidden':!(tabDisplay === 'top')}">
+			<label>Chord List:</label>
+			<div id="chord-tab-top">
+			</div>
+			<hr>
 		</div>
-		<hr>
 
 		<div id="lyrics" contenteditable>Prosciutto beef ribs beef sirloin swine cupim. Short loin ball tip rump short ribs, porchetta ham pork chop doner beef ribs ground round bacon sirloin. Jerky strip steak alcatra, jowl andouille biltong hamburger ground round brisket bacon. Flank turkey beef, prosciutto pork chop bacon ground round ball tip shank chuck.
 
 			Tongue picanha cupim ribeye pig tenderloin biltong jerky. Turducken picanha rump pancetta. Ham hock drumstick porchetta, pork tongue landjaeger ground round frankfurter short ribs tenderloin jowl. Shank t-bone porchetta beef ribs leberkas hamburger biltong sausage beef meatball shoulder
+		</div>
+
+		<div ng-class="{'hidden':!(tabDisplay === 'bottom')}">
+			<hr>
+			<label>Chord List:</label>
+			<div id="chord-tab-bottom">
+			</div>
 		</div>
 	</div>
 </div>

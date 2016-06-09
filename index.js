@@ -126,7 +126,8 @@ app.post('/songsheet', function(req,res){
       artist: req.body.artist,
       _creator: user._id,
       chords: req.body.chords,
-      data: req.body.data
+      data: req.body.data,
+      tabs: req.body.tabs
     });
 
     newSongsheet.save(function(err, doc){
@@ -151,7 +152,8 @@ app.put('/songsheet/:id', function(req,res){
         title: req.body.title,
         artist: req.body.artist,
         chords: req.body.chords,
-        data: req.body.data
+        data: req.body.data,
+        tabs: req.body.tabs
       }
     }, function (err, doc) {
       if (err) return handleError(err);

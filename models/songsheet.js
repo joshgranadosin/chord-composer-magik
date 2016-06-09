@@ -18,6 +18,9 @@ var songsheetSchema = new mongoose.Schema({
 	data: {
 		type: String,
 		required: [true, "Nothing to save!?"]
+	},
+	tabs: {
+		type: String
 	}
 });
 
