@@ -2,25 +2,25 @@
 
 ##Technologies Used
 +Full MEAN stack
-	-__MongoDB__ and __Mongoose__, database
-	-__Express__, back-end app
-	-__AngularJS__, front-end framework
-	-__Node.js__, server
+  -__MongoDB__ and __Mongoose__, database
+  -__Express__, back-end app
+  -__AngularJS__, front-end framework
+  -__Node.js__, server
 +Third Party Javascript Libraries
-	-__interact.js__, for Draggable DIVs
-	-__raphael.chord.js__, for drawing chord tabs 
-		*requires raphael.js (imported) and jQuery (included)
+  -__interact.js__, for Draggable DIVs
+  -__raphael.chord.js__, for drawing chord tabs 
+    *requires raphael.js (imported) and jQuery (included)
 +Node Modules
-	-__bCrypt__, password encryption
-	-__body-parser__, RESTful API
-	-__express__, back-end app
-	-__express-jwt__, authentication
-	-__jsonwebtoken__, authentication
-	-__mongoose__, object document mapper for database
-	-__path__, for serving public files
+  -__bCrypt__, password encryption
+  -__body-parser__, RESTful API
+  -__express__, back-end app
+  -__express-jwt__, authentication
+  -__jsonwebtoken__, authentication
+  -__mongoose__, object document mapper for database
+  -__path__, for serving public files
 +AngularJS Modules
-	-__ngResource__, AJAX calls to back-end
-	-__ui.router__, state control with URL history
+  -__ngResource__, AJAX calls to back-end
+  -__ui.router__, state control with URL history
 
 ##Installation Instructions
 1. Fork the repo from [github](https://github.com/joshgranadosin/chord-composer-magik)
