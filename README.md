@@ -1,16 +1,16 @@
 #chord-composer-magik
 
 ##Technologies Used
-+Full MEAN stack
++ Full MEAN stack
   * __MongoDB__ and __Mongoose__, database
   * __Express__, back-end app
   * __AngularJS__, front-end framework
   * __Node.js__, server
-+Third Party Javascript Libraries
++ Third Party Javascript Libraries
   * __interact.js__, for Draggable DIVs
   * __raphael.chord.js__, for drawing chord tabs 
     *requires raphael.js (imported) and jQuery (included)
-+Node Modules
++ Node Modules
   * __bCrypt__, password encryption
   * __body-parser__, RESTful API
   * __express__, back-end app
@@ -18,7 +18,7 @@
   * __jsonwebtoken__, authentication
   * __mongoose__, object document mapper for database
   * __path__, for serving public files
-+AngularJS Modules
++ AngularJS Modules
   * __ngResource__, AJAX calls to back-end
   * __ui.router__, state control with URL history
 
