@@ -301,10 +301,11 @@ ctrls.controller('ComposerCtrl', [
 				SongSheetAPI.update({id:CurrentSongSheet.get()}, payload,
 					function success(res){
 						console.log(res);
-					}),
+					},
 					function error(res){
 						console.log(res);
 					}
+				)
 			}
 		}
 
