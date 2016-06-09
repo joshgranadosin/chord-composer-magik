@@ -59,10 +59,10 @@ app.post('/signup', function(req,res){
       console.log(err);
       return res.status(401).json({err:err, message:"Unable to create user account"});
     }
-    else {
-      var token = jwt.sign(user, secret);
-      res.send({user: user, token: token});      
-    }
+    // make a token & send it as JSON
+    // I noticed that white/blacklisting is not working because it's sending the whole doc, forced method.
+    var token = jwt.sign(user.toObject(), secret);
+    res.send({user: user, token: token});
   })
 });
 
