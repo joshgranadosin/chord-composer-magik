@@ -75,6 +75,10 @@ div.chord-label{
   color: #3369E8;
 }
 
+form.add-chord{
+	display: inline-flex;
+}
+
 /* draggable special classes */
 
 div.dragging{

@@ -50,12 +50,14 @@
 
   	<label>Add to Chord List:</label>
     <div class="input-group">
-      <input type="text" class="form-control" placeholder="C#maj7" ng-model="newChordInput">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button" ng-click="addChord()">
-        	<span class="glyphicon glyphicon-plus"></span>
-        </button>
-      </span>
+    	<form class="add-chord" ng-submit="addChord()">
+	      <input type="text" class="form-control" placeholder="C#maj7" ng-model="newChordInput">
+	      <span class="input-group-btn">
+	        <button class="btn btn-default" type="submit">
+	        	<span class="glyphicon glyphicon-plus"></span>
+	        </button>
+	      </span>
+      </form>
     </div>
 
     <br>
