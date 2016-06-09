@@ -210,9 +210,10 @@ ctrls.controller('ComposerCtrl', [
 			if(chordMod === 'm'){chordMod = 'min'}
 
 			// Find the Chord
-			var chordTab = Raphael.chord.find(chordRoot, chordMod, 1);
+			var chordTab = Raphael.chord.find(chordRoot.toUpperCase(), chordMod, 1);
 			if(chordTab === undefined){
 				console.log('Sorry, not a valid chord. Check your spelling.')
+				swal('Chord Not Found', 'Sorry, please check your spelling.', 'info');
 				return;
 			}
 

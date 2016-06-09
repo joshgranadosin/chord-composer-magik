@@ -188,6 +188,11 @@ app.delete('/songsheet/:id', function(req,res){
   })
 });
 
+// about page
+app.get('/about', function(req,res){
+  res.sendFile(path.join(__dirname, 'public/documentation/about.html'));
+});
+
 // login main page
 app.get('/*', function(req,res){
 	res.sendFile(path.join(__dirname, 'public/index.html'));

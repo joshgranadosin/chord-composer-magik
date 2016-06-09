@@ -1,4 +1,6 @@
-#chord-composer-magik
+#Chord Composer Magik
+
+[Chord Composer Magik](http://i.imgur.com/umyqG3m.png)
 
 ##Technologies Used
 + Full MEAN stack
@@ -72,7 +74,9 @@ For some reason, example codes I was given were not working as I expected for `j
 
 Carlos wrote some music for his band Soul Candy. They're meeting to practice soon, but he doesn't have his new songs written out in a way they can play them. He needs an easy way to create and print his lyrics with the chords in the right place.
 
-Still building this part, but it will include links to wireframes and user flow.
+##Link to other documentation
+
+[Wireframes and User Flow](https://chordcomposermagik.herokuapp.com/about)
 
 
 
