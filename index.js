@@ -29,7 +29,10 @@ app.post('/login', function(req,res){
 	console.log('http POST at /login');
   User.findOne({email: req.body.email}, function(err, user) {
     if (err || !user){
-    	return res.status(401).json({err:err, message:"Email not found."});
+    	return res.status(401).json({
+        err:err,
+        message:"Email not found. Please check the spelling or create a new account"
+      });
    	}
     user.authenticated(req.body.password, function(err, result) {
       console.log(err,result);
@@ -57,7 +60,17 @@ app.post('/signup', function(req,res){
   newUser.save(function(err,user){
     if(err){
       console.log(err);
-      return res.status(401).json({err:err, message:"Unable to create user account"});
+      if (err && (11000 === err.code || 11001 === err.code)) {
+        return res.status(401).json({err:err, message:"That email is already in use."});
+      }
+      if (err.errors.email){
+        return res.status(401).json({err:err, message:err.errors.email.message});
+      }
+      if (err.errors.password){
+        // not sure why I'm not hitting this... must read mongoose docs
+        return res.status(401).json({err:err, message:err.errors.password.message});
+      }
+      res.status(401).json({err:err, message:"Unable to create account."});
     }
     // make a token & send it as JSON
     // I noticed that white/blacklisting is not working because it's sending the whole doc, forced method.

@@ -16,11 +16,17 @@ ctrls.controller('LoginCtrl', ['$scope', '$state', '$window', '$http', 'Auth', '
 			$http.post('/login', payload).then(
 				function success(res){
 					Auth.saveToken(res.data.token);
-					console.log(res);
-					$state.go('songlist');
+					console.log("logging in", res, CurrentSongSheet.hasCache());
+					if(CurrentSongSheet.hasCache()){
+						$state.go('composer');
+					}
+					else{
+						$state.go('songlist');
+					}
 				},
 				function error(res){
 					console.log(res);
+					swal("Unable To Log In", res.data.message, "error");
 				}
 			);
 		}
@@ -40,6 +46,11 @@ ctrls.controller('SignUpCtrl', ['$scope', '$state', '$window', '$http', 'Auth',
 		$scope.signup = function(){
 			var payload = {email: $scope.email, password: $scope.password};
 
+			// front-end validate password length because it's not working through mongoose
+			if(payload.password.length < 8 || payload.password.length > 20){
+				return swal("Unable To Create Account", "Password must be between 8 and 20 characters", "error");
+			}
+
 			console.log(payload);
 
 			$http.post('/signup', payload).then(
@@ -50,6 +61,7 @@ ctrls.controller('SignUpCtrl', ['$scope', '$state', '$window', '$http', 'Auth',
 				},
 				function error(res){
 					console.log(res);
+					swal("Unable To Create Account", res.data.message, "error");
 				}
 			);
 		}
@@ -64,6 +76,12 @@ ctrls.controller('SignUpCtrl', ['$scope', '$state', '$window', '$http', 'Auth',
 ctrls.controller('SongListCtrl', [
 	'$scope', '$state', '$window', '$http', 'Auth', 'SongSheetAPI', 'CurrentSongSheet',
 	function($scope, $state, $window, $http, Auth, SongSheetAPI, CurrentSongSheet){
+		// get out if you're not logged in
+		if(!Auth.currentUser()){
+			console.log("Not logged in");
+			return $state.go('login');
+		}
+
 		$scope.userEmail = Auth.currentUser().email;
 		$scope.songSheets = [];
 		getSongList();
@@ -134,6 +152,18 @@ ctrls.controller('ComposerCtrl', [
 		$scope.tabDisplay = 'top';
 		var songId = undefined;
 		var tabDisplaySection = document.getElementById('chord-tab-' + $scope.tabDisplay);
+
+		// grab the cache if it's there
+		var cached = CurrentSongSheet.recoverCache();
+		console.log(cached);
+		if(cached){
+			$scope.chordList = cached.chords;
+			$scope.songArtist = cached.artist;
+			$scope.songTitle = cached.title;
+			$scope.tabDisplay = cached.tabs;
+			document.getElementById('lyrics').innerHTML = cached.data;
+			resetTabs();	
+		}
 
 		// grab the old info if it's a saved song
 		console.log(CurrentSongSheet.get());
@@ -267,18 +297,34 @@ ctrls.controller('ComposerCtrl', [
 		}
 
 		$scope.save = function(){
-			// Don't save if they're not logged in.
-			if(!Auth.currentUser()){
-				console.log("Must be logged in to save.");
-				return;
-			}
-
 			var payload = {
 				title: $scope.songTitle,
 				artist: $scope.songArtist,
 				chords: $scope.chordList,
 				data: document.getElementById('lyrics').innerHTML,
 				tabs: $scope.tabDisplay
+			}
+
+			// Don't save if they're not logged in.
+			if(!Auth.currentUser()){
+				swal(
+					{
+						title: "Unable to save",
+						text: "You must be logged in to save. Do you want to log in?",
+						type: "warning",
+						showCancelButton: true,
+						confirmButtonColor: "#DD6B55",
+						confirmButtonText: "Log In",
+						cancelButtonText: "Cancel",
+						closeOnConfirm: true,
+						closeOnCancel: true
+					}, function(isConfirm){
+						if (isConfirm) {
+							CurrentSongSheet.cache(payload);
+							$state.go('login');
+						}
+					}
+				);
 			}
 
 			// make a new one
@@ -311,40 +357,82 @@ ctrls.controller('ComposerCtrl', [
 
 		// log out by removing the token
 		$scope.logout = function(){
-			Auth.removeToken();
-			console.log('Token removed');
-			$state.go('login');
+
+			swal(
+				{
+					title: "Are you sure?",
+					text: "You may lose changes if you haven't saved.",
+					type: "warning",
+					showCancelButton: true,
+					confirmButtonColor: "#DD6B55",
+					confirmButtonText: "Log Out",
+					cancelButtonText: "Cancel",
+					closeOnConfirm: false,
+					closeOnCancel: true
+				}, function(isConfirm){
+					if (isConfirm) {
+						swal(
+							{
+								title:"Logged Out",
+								type: "success"
+							}, function(){
+								Auth.removeToken();
+								console.log('Token removed');
+								$state.go('login');
+							}
+						);
+					}
+				}
+			);
 		}
 
 		$scope.delete = function(){
 			console.log("delete",CurrentSongSheet.get());
 
-			// if they're not logged in
-			if(!CurrentSongSheet.get() && !Auth.currentUser()){
-				return $state.go('login');
-			}
+			// sweet warning
+			swal(
+				{
+					title: "Are you sure?",
+					text: "You can't recover this file after delete.",
+					type: "warning",
+					showCancelButton: true,
+					confirmButtonColor: "#DD6B55",
+					confirmButtonText: "Yes, delete it!",
+					closeOnConfirm: false
+				}, function(){swal(
+					{
+						title: "Deleted",
+						type: "success",
+						closeOnConfirm: true
+					}, function(){
+						// if they're not logged in
+						if(!CurrentSongSheet.get() && !Auth.currentUser()){
+							return $state.go('login');
+						}
 
-			// if it's a new song
-			if(!CurrentSongSheet.get()){
-				return $state.go('songlist');
-			}
+						// if it's a new song
+						if(!CurrentSongSheet.get()){
+							return $state.go('songlist');
+						}
 
-			// delete
-			SongSheetAPI.destroy({id:CurrentSongSheet.get()},
-				function success(res){
-					console.log(res);
-					$state.go('songlist');
-				},
-				function error(res){
-					console.log(res);
-				}
-			)
+						// delete
+						SongSheetAPI.destroy({id:CurrentSongSheet.get()},
+							function success(res){
+								console.log(res);
+								$state.go('songlist');
+							},
+							function error(res){
+								console.log(res);
+							}
+						)
+					}
+				);
+			});
 		}
 
 		// send the print area to the printer
 		$scope.print = function(){
 			var page = document.getElementsByClassName('writing-area')[0].innerHTML;
-			//CurrentSongSheet.cache = page;
 			$state.go('print');
 			setTimeout(function(){
 				document.getElementsByClassName('printing-area')[0].innerHTML = page;

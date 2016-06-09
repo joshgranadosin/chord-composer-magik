@@ -68,10 +68,22 @@ services.service('CurrentSongSheet', ['$window', function($window) {
     },
     clear: function(){
       id = null;
-      cache = null;
     },
     cache: function(value) {
+      console.log("Cached");
       cache = value;
+      console.log(cache);
+    },
+    recoverCache: function(){
+      var temp = cache;
+      cache = null;
+      return temp;
+    },
+    hasCache: function(){
+      if(cache === null){
+        return false;
+      }
+      return true;
     }
   };
 }]);
