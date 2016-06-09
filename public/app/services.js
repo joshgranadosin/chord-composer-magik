@@ -55,7 +55,7 @@ services.factory('SongSheetAPI', ['$resource', function($resource){
   );
 }]);
 
-services.service('CurrentSongSheet', function () {
+services.service('CurrentSongSheet', ['$window', function($window) {
   var id = null;
   var cache = null;
 
@@ -74,4 +74,4 @@ services.service('CurrentSongSheet', function () {
       cache = value;
     }
   };
-});
+}]);
