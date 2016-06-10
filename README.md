@@ -9,9 +9,14 @@
   * __AngularJS__, front-end framework
   * __Node.js__, server
 + Third Party Javascript Libraries
+  * __Sweet Alerts__, for alerts
   * __interact.js__, for Draggable DIVs
-  * __raphael.chord.js__, for drawing chord tabs 
-    *requires raphael.js (imported) and jQuery (included)
+  * __raphael.chord.js__, for drawing chord tabs
+    + requires raphael.js (imported) and jQuery (included)
++ Third Party Stylesheets
+  * __Bootstrap__, for quick styling
+  * __Normalize__, for consistent styling
+  * __Sweet Alerts, for styling sweet alerts
 + Node Modules
   * __bCrypt__, password encryption
   * __body-parser__, RESTful API
@@ -42,11 +47,7 @@ After planning was finished, I set up the skeleton of my app and built it up fro
 
 * User Experience
 
-The app, from a User Experience/User Interface point of view, is broken; there's nothing there to tell a user what to click, what to drag, what's editable, and what best practices are. It's a challenge that I'm not entirely sure how to solve. I don't know if pop-up tool tips, a short paragraph, or even a video would communicate what I need, or if a change in the actual UI is the best way to go.
-
-* Warnings and Alerts
-
-I still need to add alerts for when a user does something that is disallowed (like logging in with improper credentials) or when things were successful (like when saving thier work).
+The app, from a _User Experience/User Interface_ point of view, is broken; there's nothing there to tell a user what to click, what to drag, what's editable, and what best practices are. It's a challenge that I'm not entirely sure how to solve. I don't know if pop-up tool tips, a short paragraph, or even a video would communicate what I need, or if a change in the actual UI is the best way to go.
 
 * A Better Text Editor
 
@@ -67,6 +68,10 @@ The solution was a bit of a compromise. Instead of dragging from the left toolba
 * User Authentication
 
 For some reason, example codes I was given were not working as I expected for `jsonwebtoken` implementation. Though it seemed straight forward, I had to change the example code for things to work. Honestly, I just kept trying things until it worked exactly how I needed it to.
+
+* Auto-save
+
+I wanted to create an _auto-save_ feature. It sounded simple; just run a setInterval javascript to save to localStorage. Before I even started any coding, though, I had a hard time imagining how _recovery_ would be implemented, though. Is it something the user would manually decide after loading the composer page? Do I just try to recover if something was saved? What if they actually wanted to start over? I couldn't quite figure out the flow before even trying to implement so I decided to scrap it. In any case, I was hoping to make the app quick and easy enough for the user so that they wouldn't need auto-save.
 
 #Development Documentation
 
