@@ -91,6 +91,7 @@ div.chord-label{
   line-height: normal;
   padding: 3px;
   color: #3369E8;
+  cursor: -webkit-grab;
 }
 
 form.add-chord{
@@ -106,7 +107,7 @@ div.hidden{
 div.dragging{
 	background-color: #3369E8;
 	color: white;	
-	cursor: dragging;
+	cursor: -webkit-grabbing;
 }
 
 div.can-drop{
