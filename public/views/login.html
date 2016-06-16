@@ -1,12 +1,15 @@
-<div class="container-fluid">
+<div class="container-fluid guitar-bg">
 	<div class="row">
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<h1>Chord Composer Magik</h1>
 
-			<form>
-				<legend>Log In</legend>
+		<div style="height:15vh"></div>
+
+		<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 form-bg">
+			<h1 class="white">Chord Composer Magik</h1>
+
+			<form class="white">
+				<legend class="white">Log In</legend>
 			
-				<div class="form-group">
+				<div class="form-group white">
 					<label for="">Email Address</label>
 					<input type="text" class="form-control" ng-model="email" placeholder="example@mail.com">
 				</div>
@@ -15,15 +18,15 @@
 					<input type="password" class="form-control" ng-model="password">
 				</div>
 			
-				<button type="submit" class="btn btn-primary" ng-click="login()">Log In</button>
+				<button type="submit" class="btn btn-default white" ng-click="login()">LOG IN</button>
 			</form>
 
 			<br>
 
-			<legend>New to Chord Composer Magik?</legend>
-			<p>
-				<a ng-click="linkTo('signup')">Create a new account</a> or
-				<a ng-click="linkTo('composer')">Login as guest</a>
+			<legend class="white">New to Chord Composer Magik?</legend>
+			<p class="white">
+				<a ng-click="linkTo('signup')" class="white">Create a new account</a> or
+				<a ng-click="new()" class="white">Login as guest</a>
 			</p>
 
 		</div>

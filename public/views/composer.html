@@ -1,10 +1,10 @@
 <div class="left-toolbar">
-	<div class="container-fluid">
-		<p class="pull-left">Hi, <a ng-click="clickName()">
+	<div class="container-fluid white">
+		<p class="pull-left">Hi, <a ng-click="clickName()" class="white">
 			{{userEmail}}
 		</a></p>
 
-		<a class="pull-right" href="#" ng-click="logout()">Log out</a>
+		<a class="pull-right white" href="#" ng-click="logout()">Log out</a>
 
 		<hr>
 
@@ -22,13 +22,13 @@
 		</form>
 
 		<section class="button-section">
-			<button type="button" class="btn btn-default btn-sm" aria-label="Left Align" ng-click="print()">
+			<button type="button" class="btn btn-default btn-sm white" aria-label="Left Align" ng-click="print()">
 			  <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print
 			</button>
-			<button type="button" class="btn btn-default btn-sm" aria-label="Left Align" ng-click="save()">
+			<button type="button" class="btn btn-default btn-sm white" aria-label="Left Align" ng-click="save()">
 			  <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save
 			</button>
-			<button type="button" class="btn btn-default btn-sm" aria-label="Left Align" ng-click="delete()">
+			<button type="button" class="btn btn-default btn-sm white" aria-label="Left Align" ng-click="delete()">
 			  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete
 			</button>
 		</section>
@@ -38,10 +38,10 @@
 		<h2>Chord List</h2>
 
 		<div class="btn-group" role="group" aria-label="..." ng-repeat="chord in chordList">
-  		<button type="button" class="btn btn-default btn-xs" ng-click="addLabel(chord)">
+  		<button type="button" class="btn btn-default btn-xs white no-border" ng-click="addLabel(chord)">
   			{{chord.root}} {{chord.mod | chordFilter}}
   		</button>
-  		<button type="button" class="btn btn-default btn-xs" ng-click="deleteChord($index)">
+  		<button type="button" class="btn btn-default btn-xs white no-border" ng-click="deleteChord($index)">
   			<span class="glyphicon glyphicon-remove"></span>
   		</button>
 		</div>
@@ -53,7 +53,7 @@
     	<form class="add-chord" ng-submit="addChord()">
 	      <input type="text" class="form-control" placeholder="C#maj7" ng-model="newChordInput">
 	      <span class="input-group-btn">
-	        <button class="btn btn-default" type="submit">
+	        <button class="btn btn-default white no-border" type="submit">
 	        	<span class="glyphicon glyphicon-plus"></span>
 	        </button>
 	      </span>

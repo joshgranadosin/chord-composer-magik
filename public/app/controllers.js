@@ -43,9 +43,13 @@ ctrls.controller('LoginCtrl', ['$scope', '$state', '$window', '$http', 'Auth', '
 			);
 		}
 
-		$scope.new = function(str){
+		$scope.new = function(){
 			CurrentSongSheet.clear();
 			$state.go('composer');
+		}
+
+		$scope.linkTo = function(str){
+			$state.go(str);
 		}
 	}
 ]);

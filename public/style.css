@@ -20,7 +20,8 @@ div.left-toolbar{
 	width: 300px; height: 100vh;
 	padding-top: 15px;
 	
-	background-color: #C2DEF0;
+	/*background-color: #C2DEF0;*/
+	background-color: rgba(52,42,29,1);
 }
 
 p.user{
@@ -121,4 +122,84 @@ a.logout{
 div.priting-area{
 	padding: 20px;
 	width: 511pt;
+}
+
+/* login */
+div.guitar-bg{
+	background-image: url('img/pexels-photo-63695.jpeg');
+	height: 100vh;
+	background-position: center;
+	background-size: cover;
+}
+
+div.form-bg{
+	background-color: rgba(52,42,29,.7);
+	border-radius: 40px;
+	padding: 15px 50px;
+}
+
+.white{
+	color: rgba(228,186,76,1);
+}
+
+a.white{
+	color: rgba(248,235,201,1);
+}
+
+a.white:hover{
+	color: rgba(207,111,62,1);
+}
+
+input[type="text"], input[type="password"]{
+	background-color: rgba(248,235,201,1);
+}
+
+button.white{
+	color: rgba(248,235,201,1);
+	background-color: rgba(52,42,29,1);
+	border: solid rgba(248,235,201,1);
+}
+
+button.white:hover{
+	color: rgba(207,111,62,1);
+	background-color: rgba(52,42,29,1);
+	border: solid rgba(207,111,62,1)
+}
+
+button.no-border{
+	border: 1px solid;
+}
+
+button.no-border:hover{
+	border: 1px solid;
+}
+
+h1.white{
+	display: block;
+	text-align: center;
+}
+
+/* copied from a fiddle */
+input[type='radio'] {
+    -webkit-appearance:none;
+    width:16px;
+    height:16px;
+    border:1px solid rgba(207,111,62,1);
+    border-radius:50%;
+    outline:none;
+    box-shadow:0 0 4px 0px rgba(228,186,76,1) inset;
+}
+input[type='radio']:hover {
+    box-shadow:0 0 4px 0px rgba(207,111,62,1) inset;
+}
+input[type='radio']:before {
+    content:'';
+    display:block;
+    width:70%;
+    height:70%;
+    margin: 15% auto;    
+    border-radius:50%;    
+}
+input[type='radio']:checked:before {
+    background:rgba(228,186,76,1);
 }
