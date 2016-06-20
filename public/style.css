@@ -77,7 +77,11 @@ div.writing-area{
 div#lyrics{
 	line-height: 60px;
 	white-space: pre-line;
-	padding-top: 10px;
+	padding-top: 60px;
+}
+
+div.pad-top{
+	padding-top: 10px !important;
 }
 
 div.chord-tab{

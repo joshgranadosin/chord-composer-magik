@@ -500,6 +500,15 @@ ctrls.controller('ComposerCtrl', [
 		// target elements with the "draggable" class
 		interact('.draggable')
 		  .draggable({
+		  	// enable snapping
+		  	snap: {
+		      targets: [
+		        interact.createSnapGrid({ x: 1, y: 60 })
+		      ],
+		      offset: { x: 0, y: 60 },
+		      range: Infinity,
+		      relativePoints: [ { x: 0, y: 0 } ]
+		    },
 		    // enable inertial throwing
 		    inertia: false,
 		    // keep the element within the area of it's parent
