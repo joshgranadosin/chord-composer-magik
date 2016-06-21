@@ -309,9 +309,27 @@ ctrls.controller('ComposerCtrl', [
 			})
 		};
 
+		// delete chord labels when tabs are deleted
+		function sweep(str){
+			var lyrics = document.getElementById('lyrics');
+			var broom = 0;
+
+			while(broom < lyrics.childNodes.length){
+				if(lyrics.childNodes[broom].nodeType === Node.ELEMENT_NODE
+					&& lyrics.childNodes[broom].classList.contains(str)){
+					lyrics.childNodes[broom].remove();
+				}
+				else{
+					broom++;
+				}
+			}
+		}
+
 		// delete tabs
 		$scope.deleteChord = function(chordID){
-			$scope.chordList.splice(chordID, 1);
+			var removed = $scope.chordList.splice(chordID, 1);
+			console.log('removed', removed);
+			sweep(removed[0].root + removed[0].mod);
 			resetTabs();
 		};
 
