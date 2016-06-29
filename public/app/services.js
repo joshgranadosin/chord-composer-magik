@@ -87,3 +87,14 @@ services.service('CurrentSongSheet', ['$window', function($window) {
     }
   };
 }]);
+
+services.factory('ChordModulate', [function(){
+  var chordWheel = ['A','A#','B','C','C#','D','D#','E','F','F#','G','G#'];
+  return {
+    shift: function(note, halfSteps){
+      var rootIndex = chordWheel.indexOf(note);
+      if(rootIndex === -1){return undefined}
+      return chordWheel[(rootIndex + halfSteps) % 12]
+    }
+  };
+}]);
