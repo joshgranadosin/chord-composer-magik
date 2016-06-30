@@ -12,7 +12,8 @@ ctrls.filter('chordFilter', function() {
   }
 });
 
-ctrls.controller('LoginCtrl', ['$scope', '$state', '$window', '$http', 'Auth', 'CurrentSongSheet',
+ctrls.controller('LoginCtrl', [
+	'$scope', '$state', '$window', '$http', 'Auth', 'CurrentSongSheet',
 	function($scope, $state, $window, $http, Auth, CurrentSongSheet){
 		// variables on the page
 		$scope.email = '';
@@ -153,8 +154,8 @@ ctrls.controller('SongListCtrl', [
 ]);
 
 ctrls.controller('ComposerCtrl', [
-	'$scope', '$state', '$window', 'Auth', 'SongSheetAPI', 'CurrentSongSheet',
-	function($scope, $state, $window, Auth, SongSheetAPI, CurrentSongSheet){
+	'$scope', '$state', '$window', 'Auth', 'SongSheetAPI', 'CurrentSongSheet', 'ChordModulate',
+	function($scope, $state, $window, Auth, SongSheetAPI, CurrentSongSheet, ChordModulate){
 		// use default unless they're logged in.
 		$scope.userEmail = "you're logged in as Guest";
 		if(Auth.currentUser()){
@@ -321,6 +322,33 @@ ctrls.controller('ComposerCtrl', [
 				}
 				else{
 					broom++;
+				}
+			}
+		}
+
+		$scope.changeKey = function(steps){
+			console.log('changeKey ', steps);
+
+			$scope.chordList.forEach(function(chord){
+				chord.root = ChordModulate.shift(chord.root, steps);
+				chord.tab = Raphael.chord.find(chord.root, chord.mod, 1);
+			});
+
+			resetTabs();
+
+			var lyrics = document.getElementById('lyrics');
+			console.log(lyrics);
+
+			for(var i = 0; i < lyrics.childNodes.length; i++){
+				if(lyrics.childNodes[i].nodeType === Node.ELEMENT_NODE){
+					var originalNote = lyrics.childNodes[i].innerHTML;
+					var newNote = ChordModulate.shift(originalNote, steps);
+
+					lyrics.childNodes[i].innerHTML = newNote;
+					var newClassList = lyrics.childNodes[i].className.replace(' ' + originalNote, ' ' + newNote);
+					lyrics.childNodes[i].classList = newClassList;
+
+					console.log(lyrics.childNodes[i].className);
 				}
 			}
 		}
