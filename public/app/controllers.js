@@ -342,10 +342,20 @@ ctrls.controller('ComposerCtrl', [
 			for(var i = 0; i < lyrics.childNodes.length; i++){
 				if(lyrics.childNodes[i].nodeType === Node.ELEMENT_NODE){
 					var originalNote = lyrics.childNodes[i].innerHTML;
-					var newNote = ChordModulate.shift(originalNote, steps);
 
-					lyrics.childNodes[i].innerHTML = newNote;
+					// Check if it's sharp or flat
+					var accidental = (originalNote[1] === '#' || originalNote[1] === 'b');
+
+					// Grab the root note, including # or b modifier
+					var originalRoot;
+					if(accidental){originalRoot = originalNote.substring(0,2);}
+					else{originalRoot = originalNote[0];}
+
+					var newNote = ChordModulate.shift(originalRoot, steps);
+
+					var newLabelText = lyrics.childNodes[i].innerHTML.replace(originalRoot, newNote);
 					var newClassList = lyrics.childNodes[i].className.replace(' ' + originalNote, ' ' + newNote);
+					lyrics.childNodes[i].innerHTML = newLabelText;
 					lyrics.childNodes[i].classList = newClassList;
 
 					console.log(lyrics.childNodes[i].className);

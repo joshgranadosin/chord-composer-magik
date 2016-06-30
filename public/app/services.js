@@ -94,7 +94,7 @@ services.factory('ChordModulate', [function(){
     shift: function(note, halfSteps){
       var rootIndex = chordWheel.indexOf(note);
       if(rootIndex === -1){return undefined}
-      return chordWheel[(rootIndex + halfSteps) % 12]
+      return chordWheel[(rootIndex + halfSteps + 12) % 12]
     }
   };
 }]);

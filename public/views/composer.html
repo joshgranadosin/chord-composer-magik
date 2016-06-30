@@ -62,7 +62,19 @@
 
     <br>
 
-    <label>Show Chord Legend:</label>
+    <label>Change Key:</label>
+		<section class="button-section">
+			<button type="button" class="btn btn-default btn-sm white" aria-label="Left Align" ng-click="changeKey(-1)">
+			  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Up Half-step
+			</button>
+			<button type="button" class="btn btn-default btn-sm white" aria-label="Left Align" ng-click="changeKey(1)">
+			  <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Down Half-step
+			</button>
+		</section>
+
+		<br>
+
+		<label>Show Chord Legend:</label>
     <section>
 			<label class="radio-inline">
 			  <input type="radio" name="chordList" ng-change="changeTabDisplay()" ng-model="tabDisplay" value="top">Top 
@@ -81,10 +93,6 @@
 			<span class="glyphicon glyphicon-trash"></span>
 			<label> Drag unwanted chord labels here to delete them </label>
 		</section>
-
-		<br>
-
-		<button ng-click="changeKey(1)">+</button>
 	</div>
 </div>
 <div class="container-flex full-area">
