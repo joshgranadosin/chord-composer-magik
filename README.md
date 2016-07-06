@@ -53,9 +53,13 @@ The app, from a _User Experience/User Interface_ point of view, is broken; there
 
 While I don't want the text editor to have too many features (convention for speed over configuration), there are a few things I'd like the user to have control over, such as text size or font-family. Also, if I grab javascript libraries that offer full text editor capabilities, there's no guarantee that my printing function will still work correctly.
 
-* Deleting Chord Labels No Longer In the List
+* Supporting flats
 
-When a user removes a chord from the list, all instances of chord labels for that chord that was created should be removed from the document. I have a few ideas, but I wanted to get a minimum viable product out first.
+Right now, chords are only being generated as sharps and not flats. There are easy, but ineligant ways to solve this, but I would rather figure out how to do it right.
+
+* ~~Deleting Chord Labels No Longer In the List~~
+
+~~When a user removes a chord from the list, all instances of chord labels for that chord that was created should be removed from the document. I have a few ideas, but I wanted to get a minimum viable product out first.~~
 
 ###Challenges Faced While Making the App
 
